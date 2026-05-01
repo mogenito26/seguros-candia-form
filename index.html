@@ -10,70 +10,32 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #0d1b4b 0%, #1a3a8c 60%, #1565c0 100%);
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 30px 16px;
+      display: flex; align-items: center; justify-content: center; padding: 30px 16px;
     }
-    .card {
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-      max-width: 680px;
-      width: 100%;
-      overflow: hidden;
-    }
-    .card-header {
-      background: linear-gradient(135deg, #0d1b4b, #1565c0);
-      padding: 36px 40px 28px;
-      text-align: center;
-      color: #fff;
-    }
+    .card { background: #ffffff; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.35); max-width: 680px; width: 100%; overflow: hidden; }
+    .card-header { background: linear-gradient(135deg, #0d1b4b, #1565c0); padding: 36px 40px 28px; text-align: center; color: #fff; }
     .logo-shield { font-size: 52px; margin-bottom: 10px; display: block; }
-    .card-header h1 { font-size: 2rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px; }
-    .card-header .tagline { font-size: 1.05rem; font-weight: 600; color: #90caf9; margin-bottom: 14px; }
-    .card-header p { font-size: 0.88rem; color: #cde4ff; line-height: 1.6; max-width: 520px; margin: 0 auto; }
+    .card-header h1 { font-size: 2rem; font-weight: 800; }
     .card-body { padding: 36px 40px 40px; }
-    .section-title {
-      font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1.2px; color: #1565c0; border-bottom: 2px solid #e3eefe;
-      padding-bottom: 6px; margin: 28px 0 18px;
-    }
+    .section-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; color: #1565c0; border-bottom: 2px solid #e3eefe; padding-bottom: 6px; margin: 28px 0 18px; }
     .form-group { margin-bottom: 18px; }
     label { display: block; font-size: 0.85rem; font-weight: 600; color: #1a2a4a; margin-bottom: 6px; }
-    label span.req { color: #e53935; margin-left: 2px; }
-    input, select, textarea {
-      width: 100%; padding: 11px 14px; border: 1.5px solid #c8d8f0;
-      border-radius: 8px; font-size: 0.92rem; color: #1a2a4a;
-      background: #f7faff; outline: none; transition: all 0.2s;
-    }
-    input:focus, select:focus { border-color: #1565c0; background: #fff; box-shadow: 0 0 0 3px rgba(21,101,192,0.12); }
+    input, select { width: 100%; padding: 11px 14px; border: 1.5px solid #c8d8f0; border-radius: 8px; font-size: 0.92rem; outline: none; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 4px; }
+    .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
     .product-option input { display: none; }
     .product-option label {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 14px 8px; border: 2px solid #c8d8f0; border-radius: 10px;
-      cursor: pointer; font-size: 0.8rem; font-weight: 600; color: #4a6080;
-      background: #f7faff; transition: all 0.2s; min-height: 72px; gap: 6px;
+      display: flex; flex-direction: column; align-items: center; padding: 14px 8px; border: 2px solid #c8d8f0; border-radius: 10px; cursor: pointer; text-align: center; background: #f7faff; transition: 0.2s;
     }
-    .product-option input:checked + label {
-      border-color: #1565c0; background: #e8f0fe; color: #0d1b4b; box-shadow: 0 2px 10px rgba(21,101,192,0.18);
-    }
+    .product-option input:checked + label { border-color: #1565c0; background: #e8f0fe; box-shadow: 0 2px 10px rgba(21,101,192,0.18); }
     .submenu { display: none; background: #f0f6ff; border: 1.5px solid #b3d0f5; border-radius: 10px; padding: 20px; margin-top: 14px; }
-    .submenu.active { display: block; animation: fadeIn 0.25s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+    .submenu.active { display: block; }
     .btn-submit {
-      width: 100%; padding: 15px; background: linear-gradient(135deg, #0d1b4b, #1565c0);
-      color: #fff; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700;
-      cursor: pointer; margin-top: 28px; display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 15px; background: linear-gradient(135deg, #0d1b4b, #1565c0); color: #fff; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 28px;
     }
-    .btn-submit:disabled { opacity: 0.65; cursor: not-allowed; }
-    .spinner { display: none; width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.35); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .form-error { display: none; background: #fff0f0; border: 1.5px solid #f5a0a0; border-radius: 8px; padding: 12px 16px; margin-top: 14px; color: #c62828; text-align: center; }
+    .btn-submit:disabled { opacity: 0.6; }
+    .form-error { display: none; background: #fff0f0; color: #c62828; padding: 12px; margin-top: 14px; border-radius: 8px; text-align: center; }
     .form-error.visible { display: block; }
-    .footer-note { text-align: center; font-size: 0.78rem; color: #8a9dc0; margin-top: 18px; }
     @media (max-width: 520px) { .form-row, .product-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -83,142 +45,62 @@
   <div class="card-header">
     <span class="logo-shield">🛡️</span>
     <h1>Seguros Candia</h1>
-    <p class="tagline">Estás a un paso de tu tranquilidad</p>
-    <p>Completa el formulario para generar tu propuesta formal con el respaldo de las mejores aseguradoras.</p>
+    <p>Estás a un paso de tu tranquilidad</p>
   </div>
 
   <div class="card-body">
-    <form id="seguros-form" method="POST" action="https://admin.seguroscandia.com/webhook/seguros-candia">
+    <form id="seguros-form" action="https://admin.seguroscandia.com/webhook/seguros-candia">
+      
       <p class="section-title">Datos Personales</p>
-      <div class="form-group">
-        <label for="nombre">Nombre completo <span class="req">*</span></label>
-        <input type="text" id="nombre" name="nombre" placeholder="Ej. María González Pérez" required />
-      </div>
+      <div class="form-group"><label>Nombre completo *</label><input type="text" name="nombre" required /></div>
       <div class="form-row">
-        <div class="form-group">
-          <label for="identidad">Número de identidad <span class="req">*</span></label>
-          <input type="text" id="identidad" name="numero_identidad" required />
-        </div>
-        <div class="form-group">
-          <label for="fecha-nacimiento">Fecha de nacimiento <span class="req">*</span></label>
-          <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" required />
-        </div>
+        <div class="form-group"><label>Identificación *</label><input type="text" name="numero_identidad" required /></div>
+        <div class="form-group"><label>Celular *</label><input type="tel" name="celular" required /></div>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="celular">Número de celular <span class="req">*</span></label>
-          <input type="tel" id="celular" name="celular" required />
-        </div>
-        <div class="form-group">
-          <label for="email">Correo electrónico <span class="req">*</span></label>
-          <input type="email" id="email" name="correo" required />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="direccion">Dirección de residencia <span class="req">*</span></label>
-        <input type="text" id="direccion" name="direccion" required />
-      </div>
+      <div class="form-group"><label>Correo electrónico *</label><input type="email" name="correo" required /></div>
 
       <p class="section-title">Producto de Interés</p>
       <div class="product-grid">
-        <div class="product-option">
-          <input type="radio" id="prod-autos" name="producto" value="Autos" onchange="mostrarSubmenu('autos')" required />
-          <label for="prod-autos">🚗 Autos</label>
-        </div>
-        <div class="product-option">
-          <input type="radio" id="prod-hogar" name="producto" value="Hogar" onchange="mostrarSubmenu('hogar')" />
-          <label for="prod-hogar">🏠 Hogar</label>
-        </div>
-        <div class="product-option">
-          <input type="radio" id="prod-viajes" name="producto" value="Viajes" onchange="mostrarSubmenu('viajes')" />
-          <label for="prod-viajes">✈️ Viajes</label>
-        </div>
-        <div class="product-option">
-          <input type="radio" id="prod-vida-ind" name="producto" value="Vida Individual" onchange="mostrarSubmenu('vida-individual')" />
-          <label for="prod-vida-ind">👤 Vida Individual</label>
-        </div>
-        <div class="product-option">
-          <input type="radio" id="prod-vida-grupo" name="producto" value="Vida Grupo" onchange="mostrarSubmenu('vida-grupo')" />
-          <label for="prod-vida-grupo">👥 Vida Grupo</label>
-        </div>
-        <div class="product-option">
-          <input type="radio" id="prod-empresarial" name="producto" value="Empresariales" onchange="mostrarSubmenu('empresarial')" />
-          <label for="prod-empresarial">🏢 Empresarial</label>
-        </div>
+        <div class="product-option"><input type="radio" id="p1" name="producto" value="Autos" onchange="mostrarSub('autos')" required /><label for="p1">🚗 Autos</label></div>
+        <div class="product-option"><input type="radio" id="p2" name="producto" value="Hogar" onchange="mostrarSub('hogar')" /><label for="p2">🏠 Hogar</label></div>
+        <div class="product-option"><input type="radio" id="p3" name="producto" value="Viajes" onchange="mostrarSub('viajes')" /><label for="p3">✈️ Viajes</label></div>
+        <div class="product-option"><input type="radio" id="p4" name="producto" value="Vida Individual" onchange="mostrarSub('vida-individual')" /><label for="p4">👤 Vida Ind.</label></div>
+        <div class="product-option"><input type="radio" id="p5" name="producto" value="Vida Grupo" onchange="mostrarSub('vida-grupo')" /><label for="p5">👥 Vida Grupo</label></div>
+        <div class="product-option"><input type="radio" id="p6" name="producto" value="Empresariales" onchange="mostrarSub('empresarial')" /><label for="p6">🏢 Empresarial</label></div>
       </div>
 
-      <!-- SUBMENÚS -->
-      <div class="submenu" id="submenu-autos">
-        <label>Placas</label><input type="text" name="placas" />
-        <label>Modelo</label><input type="text" name="modelo" />
-      </div>
-      <div class="submenu" id="submenu-hogar">
-        <label>Tipo Inmueble</label><select name="tipo_inmueble"><option value="Casa">Casa</option><option value="Apto">Apto</option></select>
-      </div>
-      <div class="submenu" id="submenu-viajes">
-        <label>Destino</label><input type="text" name="pais_destino" />
-      </div>
-      <div class="submenu" id="submenu-vida-individual">
-        <label>Ocupación</label><input type="text" name="ocupacion" />
-      </div>
-      <div class="submenu" id="submenu-vida-grupo">
-        <label>NIT Empresa</label><input type="text" name="nit_empresa" />
-      </div>
-      <div class="submenu" id="submenu-empresarial">
-        <label>Actividad Económica</label><input type="text" name="empresa_actividad" />
-      </div>
+      <div class="submenu" id="sub-autos"><label>Placas</label><input type="text" name="placas" /></div>
+      <div class="submenu" id="sub-hogar"><label>Dirección del inmueble</label><input type="text" name="dir_inmueble" /></div>
+      <div class="submenu" id="sub-viajes"><label>Destino</label><input type="text" name="destino" /></div>
+      <div class="submenu" id="sub-vida-individual"><label>Ocupación</label><input type="text" name="ocupacion" /></div>
+      <div class="submenu" id="sub-vida-grupo"><label>NIT Empresa</label><input type="text" name="nit" /></div>
+      <div class="submenu" id="sub-empresarial"><label>Actividad Económica</label><input type="text" name="actividad" /></div>
 
-      <button type="submit" class="btn-submit" id="btn-submit">
-        <span class="spinner" id="spinner"></span>
-        <span id="btn-text">Enviar solicitud &rarr;</span>
-      </button>
-      <div class="form-error" id="form-error"></div>
+      <button type="submit" class="btn-submit" id="btn-envio">Enviar solicitud</button>
+      <div id="msg-error" class="form-error"></div>
     </form>
   </div>
 </div>
 
 <script>
-  // 1. GESTIÓN DE SUBMENÚS
-  function mostrarSubmenu(id) {
-    const ids = ['autos', 'hogar', 'viajes', 'vida-individual', 'vida-grupo', 'empresarial'];
-    ids.forEach(key => {
-      const el = document.getElementById('submenu-' + key);
-      if (el) {
-        el.classList.remove('active');
-        el.querySelectorAll('input, select').forEach(i => i.removeAttribute('required'));
-      }
-    });
-    const target = document.getElementById('submenu-' + id);
+  function mostrarSub(id) {
+    document.querySelectorAll('.submenu').forEach(el => el.classList.remove('active'));
+    const target = document.getElementById('sub-' + id);
     if (target) target.classList.add('active');
   }
 
-  // 2. UTILIDADES DE ESTADO
-  function setLoading(loading) {
-    const btn = document.getElementById('btn-submit');
-    const spinner = document.getElementById('spinner');
-    const btnText = document.getElementById('btn-text');
-    btn.disabled = loading;
-    spinner.style.display = loading ? 'block' : 'none';
-    btnText.textContent = loading ? 'Enviando...' : 'Enviar solicitud →';
-  }
-
-  function showError(msg) {
-    const el = document.getElementById('form-error');
-    el.textContent = msg;
-    el.classList.add('visible');
-  }
-
-  // 3. ENVÍO DEL FORMULARIO
   document.getElementById('seguros-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    const elError = document.getElementById('form-error');
-    elError.classList.remove('visible');
-
+    const btn = document.getElementById('btn-envio');
+    const err = document.getElementById('msg-error');
     const form = e.target;
-    const data = {};
-    new FormData(form).forEach((value, key) => data[key] = value);
+    
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    err.classList.remove('visible');
 
-    setLoading(true);
+    const data = {};
+    new FormData(form).forEach((val, key) => data[key] = val);
 
     fetch(form.action, {
       method: 'POST',
@@ -227,21 +109,16 @@
     })
     .then(res => {
       if (res.ok) {
-        form.innerHTML = `
-          <div style="text-align:center; padding: 40px 20px;">
-            <div style="font-size:3rem; margin-bottom:10px;">✅</div>
-            <h2 style="color:#0d1b4b; margin-bottom:16px;">¡Solicitud enviada!</h2>
-            <p style="color:#4a6080; font-size:1rem; line-height:1.6;">
-              Gracias por contactarnos. Un asesor de <strong>Seguros Candia</strong> se comunicará contigo pronto.
-            </p>
-          </div>`;
+        form.innerHTML = `<div style="text-align:center; padding:40px;"><h2>✅ ¡Enviado!</h2><p>Gracias por contactar a Seguros Candia. Te llamaremos pronto.</p></div>`;
       } else {
-        throw new Error('Error en el servidor');
+        throw new Error();
       }
     })
-    .catch(err => {
-      setLoading(false);
-      showError('No se pudo conectar con el servidor. Revisa tu conexión.');
+    .catch(() => {
+      btn.disabled = false;
+      btn.textContent = 'Enviar solicitud';
+      err.textContent = 'Error de conexión con el servidor.';
+      err.classList.add('visible');
     });
   });
 </script>
