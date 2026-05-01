@@ -590,35 +590,38 @@
 <script>
   const submenus = ['autos', 'hogar', 'viajes', 'vida-individual', 'vida-grupo', 'empresarial'];
 
+ <script>
   function mostrarSubmenu(id) {
-  // 1. Lista de todos los posibles submenús
-  const submenusIds = ['autos', 'hogar', 'viajes', 'vida-individual', 'vida-grupo', 'empresarial'];
+    // 1. Lista completa de submenús
+    const submenusIds = ['autos', 'hogar', 'viajes', 'vida-individual', 'vida-grupo', 'empresarial'];
 
-  submenusIds.forEach(function(key) {
-    const el = document.getElementById('submenu-' + key);
-    if (el) {
-      // 2. Ocultamos todos los submenús primero
-      el.classList.remove('active');
-      // 3. Quitamos el atributo 'required' de los campos ocultos para que el form se pueda enviar
-      el.querySelectorAll('input, select').forEach(function(inp) {
-        inp.removeAttribute('required');
-      });
+    submenusIds.forEach(function(key) {
+      const el = document.getElementById('submenu-' + key);
+      if (el) {
+        // 2. Ocultamos todos
+        el.classList.remove('active');
+        // 3. Quitamos 'required' para que no bloqueen el envío si están ocultos
+        el.querySelectorAll('input, select').forEach(function(inp) {
+          inp.removeAttribute('required');
+        });
+      }
+    });
 
-  // 4. Mostramos el submenú que coincide con el ID seleccionado
-  const target = document.getElementById('submenu-' + id);
-  if (target) {
-    target.classList.add('active');
-    // 5. Opcional: Podrías añadir 'required' a los campos del submenú activo aquí
+    // 4. Mostramos el seleccionado
+    const target = document.getElementById('submenu-' + id);
+    if (target) {
+      target.classList.add('active');
+    }
   }
-}
+
   function setLoading(loading) {
-    const btn    = document.getElementById('btn-submit');
+    const btn = document.getElementById('btn-submit');
     const spinner = document.getElementById('spinner');
     const btnText = document.getElementById('btn-text');
 
-    btn.disabled          = loading;
-    spinner.style.display = loading ? 'block' : 'none';
-    btnText.textContent   = loading ? 'Enviando…' : 'Enviar solicitud →';
+    btn.disabled = loading;
+    if (spinner) spinner.style.display = loading ? 'block' : 'none';
+    if (btnText) btnText.textContent = loading ? 'Enviando…' : 'Enviar solicitud →';
   }
 
   function showError(msg) {
@@ -639,11 +642,47 @@
     const form = e.target;
     const webhookUrl = form.action;
 
-    if (webhookUrl === 'YOUR_N8N_WEBHOOK_URL_HERE') {
-      showError('⚠️ La URL del webhook de n8n no está configurada. Edita el atributo action del formulario.');
+    // Validación de URL
+    if (webhookUrl.includes('YOUR_N8N_WEBHOOK_URL_HERE')) {
+      showError('⚠️ La URL del webhook de n8n no está configurada correctamente.');
       return;
     }
 
+    const data = {};
+    new FormData(form).forEach(function(value, key) {
+      data[key] = value;
+    });
+
+    setLoading(true);
+
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(res) {
+      if (res.ok) {
+        form.innerHTML = `
+          <div style="text-align:center; padding: 40px 20px;">
+            <div style="font-size:3rem;">✅</div>
+            <h2 style="color:#0d1b4b; margin: 16px 0 8px;">¡Solicitud enviada!</h2>
+            <p style="color:#4a6080; font-size:0.95rem;">
+              Gracias por contactarnos. Un asesor de Seguros Candia se comunicará contigo
+              en las próximas horas para presentarte tu propuesta personalizada.
+            </p>
+          </div>`;
+      } else {
+        setLoading(false);
+        showError('Hubo un error al enviar el formulario (código ' + res.status + ').');
+      }
+    })
+    .catch(function(err) {
+      setLoading(false);
+      showError('No se pudo conectar con el servidor. Revisa que el Webhook de n8n esté activo.');
+      console.error('Error:', err);
+    });
+  });
+</script>
     const data = {};
     new FormData(form).forEach(function(value, key) {
       data[key] = value;
