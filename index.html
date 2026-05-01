@@ -591,22 +591,26 @@
   const submenus = ['autos', 'hogar', 'viajes', 'vida-individual', 'vida-grupo', 'empresarial'];
 
   function mostrarSubmenu(id) {
-    submenus.forEach(function(key) {
-      const el = document.getElementById('submenu-' + key);
-      if (el) {
-        el.classList.remove('active');
-        el.querySelectorAll('input, select').forEach(function(inp) {
-          inp.removeAttribute('required');
-        });
-      }
-    });
+  // 1. Lista de todos los posibles submenús
+  const submenusIds = ['autos', 'hogar', 'viajes', 'vida-individual', 'vida-grupo', 'empresarial'];
 
-    const target = document.getElementById('submenu-' + id);
-    if (target) {
-      target.classList.add('active');
-    }
+  submenusIds.forEach(function(key) {
+    const el = document.getElementById('submenu-' + key);
+    if (el) {
+      // 2. Ocultamos todos los submenús primero
+      el.classList.remove('active');
+      // 3. Quitamos el atributo 'required' de los campos ocultos para que el form se pueda enviar
+      el.querySelectorAll('input, select').forEach(function(inp) {
+        inp.removeAttribute('required');
+      });
+
+  // 4. Mostramos el submenú que coincide con el ID seleccionado
+  const target = document.getElementById('submenu-' + id);
+  if (target) {
+    target.classList.add('active');
+    // 5. Opcional: Podrías añadir 'required' a los campos del submenú activo aquí
   }
-
+}
   function setLoading(loading) {
     const btn    = document.getElementById('btn-submit');
     const spinner = document.getElementById('spinner');
