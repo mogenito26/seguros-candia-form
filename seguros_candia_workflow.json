@@ -1,0 +1,230 @@
+{
+  "name": "Seguros Candia - Formulario Web",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "seguros-candia",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "node-webhook-001",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "seguros-candia-form"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\"ok\": true}",
+        "options": {}
+      },
+      "id": "node-respond-002",
+      "name": "Responder OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [460, 160]
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "tableId": "solicitudes",
+        "dataToSend": "autoMapInputData",
+        "options": {}
+      },
+      "id": "node-supabase-003",
+      "name": "Guardar en Supabase",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [460, 440],
+      "credentials": {
+        "supabaseApi": {
+          "id": "REEMPLAZA_CON_ID_CREDENCIAL",
+          "name": "Supabase Seguros Candia"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $('Webhook').item.json.producto }}",
+        "rules": {
+          "rules": [
+            { "operation": "equal", "value2": "Autos" },
+            { "operation": "equal", "value2": "Hogar" },
+            { "operation": "equal", "value2": "Viajes" },
+            { "operation": "equal", "value2": "Vida Individual" },
+            { "operation": "equal", "value2": "Vida Grupo" },
+            { "operation": "equal", "value2": "Empresariales" }
+          ]
+        },
+        "fallbackOutput": "none"
+      },
+      "id": "node-switch-004",
+      "name": "Separar por Producto",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [700, 440]
+    },
+    {
+      "parameters": {
+        "fromEmail": "no-reply@seguroscandia.com",
+        "toEmail": "={{ $('Webhook').item.json.correo }}",
+        "subject": "Tu solicitud de Seguro de Autos - Seguros Candia",
+        "emailType": "html",
+        "html": "=`<!DOCTYPE html><html><body style=\"font-family:Segoe UI,Arial,sans-serif;background:#f0f4f8;margin:0;padding:20px\"><div style=\"max-width:580px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.1)\"><div style=\"background:linear-gradient(135deg,#0d1b4b,#1565c0);padding:28px 30px;text-align:center;color:#fff\"><span style=\"font-size:38px\">🛡️</span><h1 style=\"margin:8px 0 4px;font-size:1.4rem;font-weight:800\">Seguros Candia</h1><p style=\"color:#90caf9;margin:0;font-size:.9rem\">Solicitud recibida ✅</p></div><div style=\"padding:28px 30px\"><h2 style=\"color:#0d1b4b;margin-top:0\">Hola, ${$('Webhook').item.json.nombre} 👋</h2><p style=\"color:#4a6080;line-height:1.7;margin:0 0 20px\">Recibimos tu solicitud de <strong style=\"color:#0d1b4b\">Seguro de Autos</strong>. Un asesor se comunicará contigo al <strong>${$('Webhook').item.json.celular}</strong> a la brevedad.</p><div style=\"background:#f0f6ff;border-left:4px solid #1565c0;border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:20px\"><p style=\"font-size:.78rem;font-weight:700;text-transform:uppercase;color:#1565c0;letter-spacing:.8px;margin:0 0 10px\">🚗 Datos del vehículo</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Placa:</strong> ${$('Webhook').item.json.placas||'—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Marca / Línea:</strong> ${$('Webhook').item.json.marca||'—'} ${$('Webhook').item.json.linea||''}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Modelo:</strong> ${$('Webhook').item.json.modelo||'—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Ciudad de circulación:</strong> ${$('Webhook').item.json.ciudad_circulacion||'—'}</p></div><p style=\"color:#8a9dc0;font-size:.8rem;text-align:center;border-top:1px solid #e8f0fe;padding-top:16px;margin:0\">Seguros Candia · Estás a un paso de tu tranquilidad</p></div></div></body></html>`",
+        "options": {}
+      },
+      "id": "node-email-autos-005",
+      "name": "Email - Autos",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [940, 160],
+      "credentials": {
+        "smtp": {
+          "id": "REEMPLAZA_CON_ID_SMTP",
+          "name": "SMTP Seguros Candia"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "no-reply@seguroscandia.com",
+        "toEmail": "={{ $('Webhook').item.json.correo }}",
+        "subject": "Tu solicitud de Seguro de Hogar - Seguros Candia",
+        "emailType": "html",
+        "html": "=`<!DOCTYPE html><html><body style=\"font-family:Segoe UI,Arial,sans-serif;background:#f0f4f8;margin:0;padding:20px\"><div style=\"max-width:580px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.1)\"><div style=\"background:linear-gradient(135deg,#0d1b4b,#1565c0);padding:28px 30px;text-align:center;color:#fff\"><span style=\"font-size:38px\">🛡️</span><h1 style=\"margin:8px 0 4px;font-size:1.4rem;font-weight:800\">Seguros Candia</h1><p style=\"color:#90caf9;margin:0;font-size:.9rem\">Solicitud recibida ✅</p></div><div style=\"padding:28px 30px\"><h2 style=\"color:#0d1b4b;margin-top:0\">Hola, ${$('Webhook').item.json.nombre} 👋</h2><p style=\"color:#4a6080;line-height:1.7;margin:0 0 20px\">Recibimos tu solicitud de <strong style=\"color:#0d1b4b\">Seguro de Hogar</strong>. Un asesor se comunicará contigo al <strong>${$('Webhook').item.json.celular}</strong> a la brevedad.</p><div style=\"background:#f0f6ff;border-left:4px solid #1565c0;border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:20px\"><p style=\"font-size:.78rem;font-weight:700;text-transform:uppercase;color:#1565c0;letter-spacing:.8px;margin:0 0 10px\">🏠 Datos del inmueble</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Tipo:</strong> ${$('Webhook').item.json.tipo_inmueble||'—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Tenencia:</strong> ${$('Webhook').item.json.tenencia||'—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Valor aprox.:</strong> ${$('Webhook').item.json.valor_inmueble ? '$ ' + Number($('Webhook').item.json.valor_inmueble).toLocaleString('es-CO') + ' COP' : '—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Ciudad:</strong> ${$('Webhook').item.json.ciudad_inmueble||'—'}</p></div><p style=\"color:#8a9dc0;font-size:.8rem;text-align:center;border-top:1px solid #e8f0fe;padding-top:16px;margin:0\">Seguros Candia · Estás a un paso de tu tranquilidad</p></div></div></body></html>`",
+        "options": {}
+      },
+      "id": "node-email-hogar-006",
+      "name": "Email - Hogar",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [940, 300],
+      "credentials": {
+        "smtp": {
+          "id": "REEMPLAZA_CON_ID_SMTP",
+          "name": "SMTP Seguros Candia"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "no-reply@seguroscandia.com",
+        "toEmail": "={{ $('Webhook').item.json.correo }}",
+        "subject": "Tu solicitud de Seguro de Viajes - Seguros Candia",
+        "emailType": "html",
+        "html": "=`<!DOCTYPE html><html><body style=\"font-family:Segoe UI,Arial,sans-serif;background:#f0f4f8;margin:0;padding:20px\"><div style=\"max-width:580px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.1)\"><div style=\"background:linear-gradient(135deg,#0d1b4b,#1565c0);padding:28px 30px;text-align:center;color:#fff\"><span style=\"font-size:38px\">🛡️</span><h1 style=\"margin:8px 0 4px;font-size:1.4rem;font-weight:800\">Seguros Candia</h1><p style=\"color:#90caf9;margin:0;font-size:.9rem\">Solicitud recibida ✅</p></div><div style=\"padding:28px 30px\"><h2 style=\"color:#0d1b4b;margin-top:0\">Hola, ${$('Webhook').item.json.nombre} 👋</h2><p style=\"color:#4a6080;line-height:1.7;margin:0 0 20px\">Recibimos tu solicitud de <strong style=\"color:#0d1b4b\">Seguro de Viajes</strong>. Un asesor se comunicará contigo al <strong>${$('Webhook').item.json.celular}</strong> a la brevedad.</p><div style=\"background:#f0f6ff;border-left:4px solid #1565c0;border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:20px\"><p style=\"font-size:.78rem;font-weight:700;text-transform:uppercase;color:#1565c0;letter-spacing:.8px;margin:0 0 10px\">✈️ Datos del viaje</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Ruta:</strong> ${$('Webhook').item.json.pais_origen||'—'} → ${$('Webhook').item.json.pais_destino||'—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Salida:</strong> ${$('Webhook').item.json.fecha_salida||'—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Regreso:</strong> ${$('Webhook').item.json.fecha_regreso||'—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Viajeros:</strong> ${$('Webhook').item.json.numero_personas||'—'}</p></div><p style=\"color:#8a9dc0;font-size:.8rem;text-align:center;border-top:1px solid #e8f0fe;padding-top:16px;margin:0\">Seguros Candia · Estás a un paso de tu tranquilidad</p></div></div></body></html>`",
+        "options": {}
+      },
+      "id": "node-email-viajes-007",
+      "name": "Email - Viajes",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [940, 440],
+      "credentials": {
+        "smtp": {
+          "id": "REEMPLAZA_CON_ID_SMTP",
+          "name": "SMTP Seguros Candia"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "no-reply@seguroscandia.com",
+        "toEmail": "={{ $('Webhook').item.json.correo }}",
+        "subject": "Tu solicitud de Seguro de Vida Individual - Seguros Candia",
+        "emailType": "html",
+        "html": "=`<!DOCTYPE html><html><body style=\"font-family:Segoe UI,Arial,sans-serif;background:#f0f4f8;margin:0;padding:20px\"><div style=\"max-width:580px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.1)\"><div style=\"background:linear-gradient(135deg,#0d1b4b,#1565c0);padding:28px 30px;text-align:center;color:#fff\"><span style=\"font-size:38px\">🛡️</span><h1 style=\"margin:8px 0 4px;font-size:1.4rem;font-weight:800\">Seguros Candia</h1><p style=\"color:#90caf9;margin:0;font-size:.9rem\">Solicitud recibida ✅</p></div><div style=\"padding:28px 30px\"><h2 style=\"color:#0d1b4b;margin-top:0\">Hola, ${$('Webhook').item.json.nombre} 👋</h2><p style=\"color:#4a6080;line-height:1.7;margin:0 0 20px\">Recibimos tu solicitud de <strong style=\"color:#0d1b4b\">Seguro de Vida Individual</strong>. Un asesor se comunicará contigo al <strong>${$('Webhook').item.json.celular}</strong> a la brevedad.</p><div style=\"background:#f0f6ff;border-left:4px solid #1565c0;border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:20px\"><p style=\"font-size:.78rem;font-weight:700;text-transform:uppercase;color:#1565c0;letter-spacing:.8px;margin:0 0 10px\">👤 Información personal</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Ocupación:</strong> ${$('Webhook').item.json.ocupacion||'—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Exp. documento:</strong> ${$('Webhook').item.json.fecha_expedicion_documento||'—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Presupuesto mensual:</strong> ${$('Webhook').item.json.pago_mensual ? '$ ' + Number($('Webhook').item.json.pago_mensual).toLocaleString('es-CO') + ' COP' : '—'}</p></div><p style=\"color:#8a9dc0;font-size:.8rem;text-align:center;border-top:1px solid #e8f0fe;padding-top:16px;margin:0\">Seguros Candia · Estás a un paso de tu tranquilidad</p></div></div></body></html>`",
+        "options": {}
+      },
+      "id": "node-email-vida-ind-008",
+      "name": "Email - Vida Individual",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [940, 580],
+      "credentials": {
+        "smtp": {
+          "id": "REEMPLAZA_CON_ID_SMTP",
+          "name": "SMTP Seguros Candia"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "no-reply@seguroscandia.com",
+        "toEmail": "={{ $('Webhook').item.json.correo }}",
+        "subject": "Tu solicitud de Seguro de Vida Grupo - Seguros Candia",
+        "emailType": "html",
+        "html": "=`<!DOCTYPE html><html><body style=\"font-family:Segoe UI,Arial,sans-serif;background:#f0f4f8;margin:0;padding:20px\"><div style=\"max-width:580px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.1)\"><div style=\"background:linear-gradient(135deg,#0d1b4b,#1565c0);padding:28px 30px;text-align:center;color:#fff\"><span style=\"font-size:38px\">🛡️</span><h1 style=\"margin:8px 0 4px;font-size:1.4rem;font-weight:800\">Seguros Candia</h1><p style=\"color:#90caf9;margin:0;font-size:.9rem\">Solicitud recibida ✅</p></div><div style=\"padding:28px 30px\"><h2 style=\"color:#0d1b4b;margin-top:0\">Hola, ${$('Webhook').item.json.nombre} 👋</h2><p style=\"color:#4a6080;line-height:1.7;margin:0 0 20px\">Recibimos la solicitud de <strong style=\"color:#0d1b4b\">Seguro de Vida Grupo</strong>. Un asesor se comunicará contigo al <strong>${$('Webhook').item.json.celular}</strong> a la brevedad.</p><div style=\"background:#f0f6ff;border-left:4px solid #1565c0;border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:20px\"><p style=\"font-size:.78rem;font-weight:700;text-transform:uppercase;color:#1565c0;letter-spacing:.8px;margin:0 0 10px\">👥 Datos de la empresa</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">NIT:</strong> ${$('Webhook').item.json.nit_empresa||'—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Código CIU:</strong> ${$('Webhook').item.json.codigo_ciu||'—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">N° empleados:</strong> ${$('Webhook').item.json.numero_empleados||'—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">ARL actual:</strong> ${$('Webhook').item.json.arl||'—'}</p></div><p style=\"color:#8a9dc0;font-size:.8rem;text-align:center;border-top:1px solid #e8f0fe;padding-top:16px;margin:0\">Seguros Candia · Estás a un paso de tu tranquilidad</p></div></div></body></html>`",
+        "options": {}
+      },
+      "id": "node-email-vida-grupo-009",
+      "name": "Email - Vida Grupo",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [940, 720],
+      "credentials": {
+        "smtp": {
+          "id": "REEMPLAZA_CON_ID_SMTP",
+          "name": "SMTP Seguros Candia"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "no-reply@seguroscandia.com",
+        "toEmail": "={{ $('Webhook').item.json.correo }}",
+        "subject": "Tu solicitud de Seguro Empresarial - Seguros Candia",
+        "emailType": "html",
+        "html": "=`<!DOCTYPE html><html><body style=\"font-family:Segoe UI,Arial,sans-serif;background:#f0f4f8;margin:0;padding:20px\"><div style=\"max-width:580px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.1)\"><div style=\"background:linear-gradient(135deg,#0d1b4b,#1565c0);padding:28px 30px;text-align:center;color:#fff\"><span style=\"font-size:38px\">🛡️</span><h1 style=\"margin:8px 0 4px;font-size:1.4rem;font-weight:800\">Seguros Candia</h1><p style=\"color:#90caf9;margin:0;font-size:.9rem\">Solicitud recibida ✅</p></div><div style=\"padding:28px 30px\"><h2 style=\"color:#0d1b4b;margin-top:0\">Hola, ${$('Webhook').item.json.nombre} 👋</h2><p style=\"color:#4a6080;line-height:1.7;margin:0 0 20px\">Recibimos la solicitud de <strong style=\"color:#0d1b4b\">Seguro Empresarial</strong>. Un asesor especializado se comunicará contigo al <strong>${$('Webhook').item.json.celular}</strong> a la brevedad.</p><div style=\"background:#f0f6ff;border-left:4px solid #1565c0;border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:20px\"><p style=\"font-size:.78rem;font-weight:700;text-transform:uppercase;color:#1565c0;letter-spacing:.8px;margin:0 0 10px\">🏢 Datos de la empresa</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Empresa:</strong> ${$('Webhook').item.json.empresa_nombre||'—'}</p><p style=\"margin:5px 0;font-size:.88rem;color:#4a6080\"><strong style=\"color:#1a2a4a\">Actividad:</strong> ${$('Webhook').item.json.empresa_actividad||'—'}</p></div><p style=\"color:#8a9dc0;font-size:.8rem;text-align:center;border-top:1px solid #e8f0fe;padding-top:16px;margin:0\">Seguros Candia · Estás a un paso de tu tranquilidad</p></div></div></body></html>`",
+        "options": {}
+      },
+      "id": "node-email-empresarial-010",
+      "name": "Email - Empresariales",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [940, 860],
+      "credentials": {
+        "smtp": {
+          "id": "REEMPLAZA_CON_ID_SMTP",
+          "name": "SMTP Seguros Candia"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          { "node": "Responder OK",         "type": "main", "index": 0 },
+          { "node": "Guardar en Supabase",   "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Guardar en Supabase": {
+      "main": [
+        [
+          { "node": "Separar por Producto", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Separar por Producto": {
+      "main": [
+        [{ "node": "Email - Autos",           "type": "main", "index": 0 }],
+        [{ "node": "Email - Hogar",           "type": "main", "index": 0 }],
+        [{ "node": "Email - Viajes",          "type": "main", "index": 0 }],
+        [{ "node": "Email - Vida Individual", "type": "main", "index": 0 }],
+        [{ "node": "Email - Vida Grupo",      "type": "main", "index": 0 }],
+        [{ "node": "Email - Empresariales",   "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}
