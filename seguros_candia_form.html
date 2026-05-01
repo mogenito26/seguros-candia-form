@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seguros Candia - Formulario</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0d1b4b 0%, #1a3a8c 60%, #1565c0 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 16px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      max-width: 680px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #0d1b4b, #1565c0);
+      padding: 36px 40px 28px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .logo-shield {
+      font-size: 52px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .card-header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .card-header .tagline {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #90caf9;
+      margin-bottom: 14px;
+    }
+
+    .card-header p {
+      font-size: 0.88rem;
+      color: #cde4ff;
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .card-body {
+      padding: 36px 40px 40px;
+    }
+
+    .section-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #1565c0;
+      border-bottom: 2px solid #e3eefe;
+      padding-bottom: 6px;
+      margin: 28px 0 18px;
+    }
+
+    .section-title:first-child {
+      margin-top: 0;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1a2a4a;
+      margin-bottom: 6px;
+    }
+
+    label span.req {
+      color: #e53935;
+      margin-left: 2px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #c8d8f0;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      color: #1a2a4a;
+      background: #f7faff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #1565c0;
+      box-shadow: 0 0 0 3px rgba(21,101,192,0.12);
+      background: #fff;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    /* Producto selector */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .product-option {
+      position: relative;
+    }
+
+    .product-option input[type="radio"] {
+      display: none;
+    }
+
+    .product-option label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 8px;
+      border: 2px solid #c8d8f0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #4a6080;
+      background: #f7faff;
+      text-align: center;
+      transition: all 0.2s;
+      min-height: 72px;
+      gap: 6px;
+    }
+
+    .product-option label .icon {
+      font-size: 1.5rem;
+    }
+
+    .product-option input[type="radio"]:checked + label {
+      border-color: #1565c0;
+      background: #e8f0fe;
+      color: #0d1b4b;
+      box-shadow: 0 2px 10px rgba(21,101,192,0.18);
+    }
+
+    .product-option label:hover {
+      border-color: #1565c0;
+      background: #eef4ff;
+    }
+
+    /* Submenú */
+    .submenu {
+      display: none;
+      background: #f0f6ff;
+      border: 1.5px solid #b3d0f5;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 14px;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .submenu.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .submenu-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #1565c0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .submenu .form-group {
+      margin-bottom: 14px;
+    }
+
+    .submenu .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Botón */
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #0d1b4b, #1565c0);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 28px;
+      transition: opacity 0.2s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    /* Spinner */
+    .spinner {
+      display: none;
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(255,255,255,0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Mensaje de error inline */
+    .form-error {
+      display: none;
+      background: #fff0f0;
+      border: 1.5px solid #f5a0a0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 14px;
+      font-size: 0.88rem;
+      color: #c62828;
+      text-align: center;
+    }
+
+    .form-error.visible {
+      display: block;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8a9dc0;
+      margin-top: 18px;
+    }
+
+    .footer-note a {
+      color: #1565c0;
+      text-decoration: none;
+    }
+
+    @media (max-width: 520px) {
+      .card-body { padding: 24px 20px 28px; }
+      .card-header { padding: 28px 20px 22px; }
+      .form-row { grid-template-columns: 1fr; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .card-header h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- ENCABEZADO -->
+  <div class="card-header">
+    <span class="logo-shield">🛡️</span>
+    <h1>Seguros Candia</h1>
+    <p class="tagline">Estás a un paso de tu tranquilidad</p>
+    <p>
+      En Seguros Candia nos tomamos en serio tu seguridad. Completa este breve formulario
+      con tu nombre, identificación, residencia y contacto para que podamos generar tu
+      propuesta formal con el respaldo de las mejores aseguradoras del país.
+    </p>
+  </div>
+
+  <!-- CUERPO DEL FORMULARIO -->
+  <div class="card-body">
+    <!--
+      ════════════════════════════════════════════════════
+      CONFIGURA AQUÍ LA URL DE TU WEBHOOK DE n8n:
+        action="https://tu-n8n.com/webhook/seguros-candia"
+      ════════════════════════════════════════════════════
+    -->
+    <form id="seguros-form" method="POST" action="YOUR_N8N_WEBHOOK_URL_HERE">
+
+      <!-- DATOS PERSONALES -->
+      <p class="section-title">Datos Personales</p>
+
+      <div class="form-group">
+        <label for="nombre">Nombre completo <span class="req">*</span></label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej. María González Pérez" required />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="identidad">Número de identidad <span class="req">*</span></label>
+          <input type="text" id="identidad" name="numero_identidad" placeholder="Ej. 1020304050" required />
+        </div>
+        <div class="form-group">
+          <label for="fecha-nacimiento">Fecha de nacimiento <span class="req">*</span></label>
+          <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="celular">Número de celular <span class="req">*</span></label>
+          <input type="tel" id="celular" name="celular" placeholder="Ej. 3001234567" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Correo electrónico <span class="req">*</span></label>
+          <input type="email" id="email" name="correo" placeholder="ejemplo@correo.com" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="direccion">Dirección de residencia <span class="req">*</span></label>
+        <input type="text" id="direccion" name="direccion" placeholder="Ej. Calle 45 # 12-34, Bogotá" required />
+      </div>
+
+      <!-- PRODUCTO DE INTERÉS -->
+      <p class="section-title">Producto de Interés</p>
+
+      <div class="product-grid">
+
+        <div class="product-option">
+          <input type="radio" id="prod-autos" name="producto" value="Autos" onchange="mostrarSubmenu('autos')" required />
+          <label for="prod-autos">
+            <span class="icon">🚗</span> Autos
+          </label>
+        </div>
+
+        <div class="product-option">
+          <input type="radio" id="prod-hogar" name="producto" value="Hogar" onchange="mostrarSubmenu('hogar')" />
+          <label for="prod-hogar">
+            <span class="icon">🏠</span> Hogar
+          </label>
+        </div>
+
+        <div class="product-option">
+          <input type="radio" id="prod-viajes" name="producto" value="Viajes" onchange="mostrarSubmenu('viajes')" />
+          <label for="prod-viajes">
+            <span class="icon">✈️</span> Viajes
+          </label>
+        </div>
+
+        <div class="product-option">
+          <input type="radio" id="prod-vida-ind" name="producto" value="Vida Individual" onchange="mostrarSubmenu('vida-individual')" />
+          <label for="prod-vida-ind">
+            <span class="icon">👤</span> Vida Individual
+          </label>
+        </div>
+
+        <div class="product-option">
+          <input type="radio" id="prod-vida-grupo" name="producto" value="Vida Grupo" onchange="mostrarSubmenu('vida-grupo')" />
+          <label for="prod-vida-grupo">
+            <span class="icon">👥</span> Vida Grupo
+          </label>
+        </div>
+
+        <div class="product-option">
+          <input type="radio" id="prod-empresarial" name="producto" value="Empresariales" onchange="mostrarSubmenu('empresarial')" />
+          <label for="prod-empresarial">
+            <span class="icon">🏢</span> Empresariales
+          </label>
+        </div>
+
+      </div>
+
+      <!-- SUBMENU: AUTOS -->
+      <div class="submenu" id="submenu-autos">
+        <div class="submenu-title">🚗 Información del Vehículo</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="placas">Número de placas</label>
+            <input type="text" id="placas" name="placas" placeholder="Ej. ABC123" />
+          </div>
+          <div class="form-group">
+            <label for="modelo">Modelo (año)</label>
+            <input type="text" id="modelo" name="modelo" placeholder="Ej. 2022" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="marca">Marca</label>
+            <input type="text" id="marca" name="marca" placeholder="Ej. Toyota" />
+          </div>
+          <div class="form-group">
+            <label for="linea">Línea</label>
+            <input type="text" id="linea" name="linea" placeholder="Ej. Corolla" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ciudad-circ">Ciudad de circulación</label>
+          <input type="text" id="ciudad-circ" name="ciudad_circulacion" placeholder="Ej. Medellín" />
+        </div>
+      </div>
+
+      <!-- SUBMENU: HOGAR -->
+      <div class="submenu" id="submenu-hogar">
+        <div class="submenu-title">🏠 Información del Inmueble</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="tipo-inmueble">Tipo de inmueble</label>
+            <select id="tipo-inmueble" name="tipo_inmueble">
+              <option value="">Selecciona…</option>
+              <option value="Casa">Casa</option>
+              <option value="Apartamento">Apartamento</option>
+              <option value="Casa campestre">Casa campestre</option>
+              <option value="Local comercial">Local comercial</option>
+              <option value="Bodega">Bodega</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tenencia">Tenencia</label>
+            <select id="tenencia" name="tenencia">
+              <option value="">Selecciona…</option>
+              <option value="Propio">Propio</option>
+              <option value="Arrendado">Arrendado</option>
+              <option value="En leasing">En leasing</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="valor-inmueble">Valor aproximado del inmueble (COP)</label>
+            <input type="number" id="valor-inmueble" name="valor_inmueble" placeholder="Ej. 250000000" min="0" />
+          </div>
+          <div class="form-group">
+            <label for="ciudad-inmueble">Ciudad del inmueble</label>
+            <input type="text" id="ciudad-inmueble" name="ciudad_inmueble" placeholder="Ej. Bogotá" />
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBMENU: VIAJES -->
+      <div class="submenu" id="submenu-viajes">
+        <div class="submenu-title">✈️ Información del Viaje</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pais-origen">País de origen</label>
+            <input type="text" id="pais-origen" name="pais_origen" placeholder="Ej. Colombia" />
+          </div>
+          <div class="form-group">
+            <label for="pais-destino">País de destino</label>
+            <input type="text" id="pais-destino" name="pais_destino" placeholder="Ej. España" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fecha-salida">Fecha de salida</label>
+            <input type="date" id="fecha-salida" name="fecha_salida" />
+          </div>
+          <div class="form-group">
+            <label for="fecha-regreso">Fecha de regreso</label>
+            <input type="date" id="fecha-regreso" name="fecha_regreso" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="num-personas">¿Cuántas personas viajan?</label>
+          <input type="number" id="num-personas" name="numero_personas" placeholder="Ej. 2" min="1" />
+        </div>
+      </div>
+
+      <!-- SUBMENU: VIDA INDIVIDUAL -->
+      <div class="submenu" id="submenu-vida-individual">
+        <div class="submenu-title">👤 Información de Vida Individual</div>
+        <div class="form-group">
+          <label for="ocupacion">Ocupación</label>
+          <input type="text" id="ocupacion" name="ocupacion" placeholder="Ej. Ingeniero, Comerciante, Médico…" />
+        </div>
+        <div class="form-group">
+          <label for="fecha-expedicion">Fecha de expedición del documento</label>
+          <input type="date" id="fecha-expedicion" name="fecha_expedicion_documento" />
+        </div>
+        <div class="form-group">
+          <label for="pago-mensual">¿Cuánto está dispuesto a pagar mensualmente? (COP)</label>
+          <input type="number" id="pago-mensual" name="pago_mensual" placeholder="Ej. 150000" min="0" />
+        </div>
+      </div>
+
+      <!-- SUBMENU: VIDA GRUPO -->
+      <div class="submenu" id="submenu-vida-grupo">
+        <div class="submenu-title">👥 Información de Vida Grupo</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nit">NIT de la empresa</label>
+            <input type="text" id="nit" name="nit_empresa" placeholder="Ej. 900123456-1" />
+          </div>
+          <div class="form-group">
+            <label for="ciu">Código CIU</label>
+            <input type="text" id="ciu" name="codigo_ciu" placeholder="Ej. 4711" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="num-empleados">Número de empleados</label>
+            <input type="number" id="num-empleados" name="numero_empleados" placeholder="Ej. 50" min="1" />
+          </div>
+          <div class="form-group">
+            <label for="arl">ARL actual</label>
+            <input type="text" id="arl" name="arl" placeholder="Ej. Sura, Positiva…" />
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBMENU: EMPRESARIAL -->
+      <div class="submenu" id="submenu-empresarial">
+        <div class="submenu-title">🏢 Seguro Empresarial</div>
+        <div class="form-group">
+          <label for="empresa-nombre">Nombre de la empresa</label>
+          <input type="text" id="empresa-nombre" name="empresa_nombre" placeholder="Ej. Distribuciones López S.A.S" />
+        </div>
+        <div class="form-group">
+          <label for="empresa-actividad">Actividad económica</label>
+          <input type="text" id="empresa-actividad" name="empresa_actividad" placeholder="Ej. Comercio al por mayor" />
+        </div>
+      </div>
+
+      <!-- BOTÓN ENVIAR -->
+      <button type="submit" class="btn-submit" id="btn-submit">
+        <span class="spinner" id="spinner"></span>
+        <span id="btn-text">Enviar solicitud &rarr;</span>
+      </button>
+
+      <!-- ERROR INLINE -->
+      <div class="form-error" id="form-error"></div>
+
+      <p class="footer-note">
+        Tu información es tratada con total confidencialidad conforme a la
+        <a href="#">Política de Privacidad</a> de Seguros Candia.
+      </p>
+
+    </form>
+  </div>
+</div>
+
+<script>
+  const submenus = ['autos', 'hogar', 'viajes', 'vida-individual', 'vida-grupo', 'empresarial'];
+
+  function mostrarSubmenu(id) {
+    submenus.forEach(function(key) {
+      const el = document.getElementById('submenu-' + key);
+      if (el) {
+        el.classList.remove('active');
+        el.querySelectorAll('input, select').forEach(function(inp) {
+          inp.removeAttribute('required');
+        });
+      }
+    });
+
+    const target = document.getElementById('submenu-' + id);
+    if (target) {
+      target.classList.add('active');
+    }
+  }
+
+  function setLoading(loading) {
+    const btn    = document.getElementById('btn-submit');
+    const spinner = document.getElementById('spinner');
+    const btnText = document.getElementById('btn-text');
+
+    btn.disabled          = loading;
+    spinner.style.display = loading ? 'block' : 'none';
+    btnText.textContent   = loading ? 'Enviando…' : 'Enviar solicitud →';
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('form-error');
+    el.textContent = msg;
+    el.classList.add('visible');
+  }
+
+  function hideError() {
+    const el = document.getElementById('form-error');
+    el.classList.remove('visible');
+  }
+
+  document.getElementById('seguros-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    hideError();
+
+    const form = e.target;
+    const webhookUrl = form.action;
+
+    if (webhookUrl === 'YOUR_N8N_WEBHOOK_URL_HERE') {
+      showError('⚠️ La URL del webhook de n8n no está configurada. Edita el atributo action del formulario.');
+      return;
+    }
+
+    const data = {};
+    new FormData(form).forEach(function(value, key) {
+      data[key] = value;
+    });
+
+    setLoading(true);
+
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(res) {
+      if (res.ok) {
+        form.innerHTML = `
+          <div style="text-align:center; padding: 40px 20px;">
+            <div style="font-size:3rem;">✅</div>
+            <h2 style="color:#0d1b4b; margin: 16px 0 8px;">¡Solicitud enviada!</h2>
+            <p style="color:#4a6080; font-size:0.95rem;">
+              Gracias por contactarnos. Un asesor de Seguros Candia se comunicará contigo
+              en las próximas horas para presentarte tu propuesta personalizada.
+            </p>
+          </div>`;
+      } else {
+        setLoading(false);
+        showError('Hubo un error al enviar el formulario (código ' + res.status + '). Por favor intenta de nuevo.');
+      }
+    })
+    .catch(function() {
+      setLoading(false);
+      showError('No se pudo conectar con el servidor. Revisa tu conexión e intenta de nuevo.');
+    });
+  });
+</script>
+
+</body>
+</html>
