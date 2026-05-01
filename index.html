@@ -697,25 +697,27 @@
     })
     .then(function(res) {
       if (res.ok) {
+        // REEMPLAZO LIMPIO DEL CONTENIDO
         form.innerHTML = `
           <div style="text-align:center; padding: 40px 20px;">
-            <div style="font-size:3rem;">✅</div>
-            <h2 style="color:#0d1b4b; margin: 16px 0 8px;">¡Solicitud enviada!</h2>
-            <p style="color:#4a6080; font-size:0.95rem;">
-              Gracias por contactarnos. Un asesor de Seguros Candia se comunicará contigo
+            <div style="font-size:3rem; margin-bottom:10px;">✅</div>
+            <h2 style="color:#0d1b4b; margin-bottom:16px;">¡Solicitud enviada!</h2>
+            <p style="color:#4a6080; font-size:1rem; line-height:1.6;">
+              Gracias por contactarnos. Un asesor de <strong>Seguros Candia</strong> se comunicará contigo 
               en las próximas horas para presentarte tu propuesta personalizada.
             </p>
           </div>`;
       } else {
         setLoading(false);
-        showError('Hubo un error al enviar el formulario (código ' + res.status + '). Por favor intenta de nuevo.');
+        showError('Hubo un error al enviar el formulario (código ' + res.status + ').');
       }
     })
-    .catch(function() {
+    .catch(function(err) {
       setLoading(false);
-      showError('No se pudo conectar con el servidor. Revisa tu conexión e intenta de nuevo.');
+      showError('No se pudo conectar con el servidor. Revisa tu conexión.');
+      console.error('Error:', err);
     });
-  });
+  }); // Cierre del addEventListener
 </script>
 
 </body>
