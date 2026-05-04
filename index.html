@@ -11,267 +11,65 @@
     --navy-mid: #1a2e45;
     --gold: #c9a84c;
     --gold-light: #e8c96a;
-    --cream: #f8f4ee;
     --white: #ffffff;
     --muted: #8a9bb0;
     --error: #e05252;
-    --success: #3db87a;
     --radius: 12px;
     --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(201,168,76,0.08) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 90%, rgba(13,27,42,0.9) 0%, transparent 70%); pointer-events: none; z-index: 0; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--navy);
-    color: var(--white);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(201,168,76,0.08) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 80% at 80% 90%, rgba(13,27,42,0.9) 0%, transparent 70%);
-    pointer-events: none; z-index: 0;
-  }
-
-  header {
-    position: relative; z-index: 10;
-    text-align: center;
-    padding: 56px 24px 40px;
-    border-bottom: 1px solid rgba(201,168,76,0.2);
-  }
-
-  .logo-line {
-    display: flex; align-items: center; justify-content: center; gap: 14px;
-    margin-bottom: 8px;
-  }
-  .logo-icon {
-    width: 44px; height: 44px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-    box-shadow: 0 0 20px rgba(201,168,76,0.3);
-  }
-  header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(26px, 5vw, 38px);
-    font-weight: 900;
-    letter-spacing: -0.5px;
-    color: var(--white);
-  }
+  header { position: relative; z-index: 10; text-align: center; padding: 56px 24px 40px; border-bottom: 1px solid rgba(201,168,76,0.2); }
+  .logo-line { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 8px; }
+  .logo-icon { width: 44px; height: 44px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 0 20px rgba(201,168,76,0.3); }
+  header h1 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 5vw, 38px); font-weight: 900; letter-spacing: -0.5px; }
   header h1 span { color: var(--gold); }
-  header p {
-    color: var(--muted);
-    font-size: 15px; font-weight: 300;
-    margin-top: 6px;
-  }
+  header p { color: var(--muted); font-size: 15px; font-weight: 300; margin-top: 6px; }
 
-  .product-section {
-    position: relative; z-index: 10;
-    max-width: 900px; margin: 0 auto;
-    padding: 40px 24px 20px;
-  }
-  .product-section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px; font-weight: 700;
-    color: var(--gold);
-    margin-bottom: 20px;
-    text-align: center;
-    letter-spacing: 0.5px;
-  }
-
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 12px;
-  }
-
-  .product-card {
-    background: var(--navy-mid);
-    border: 1.5px solid rgba(201,168,76,0.15);
-    border-radius: var(--radius);
-    padding: 20px 12px;
-    text-align: center;
-    cursor: pointer;
-    transition: var(--transition);
-    user-select: none;
-  }
-  .product-card:hover {
-    border-color: var(--gold);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(201,168,76,0.15);
-  }
-  .product-card.active {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.1);
-    box-shadow: 0 0 0 1px var(--gold), 0 8px 24px rgba(201,168,76,0.2);
-  }
-  .product-card .icon { font-size: 28px; margin-bottom: 8px; }
-  .product-card .label {
-    font-size: 13px; font-weight: 500;
-    color: var(--muted);
-    transition: color var(--transition);
-  }
+  .product-section { position: relative; z-index: 10; max-width: 900px; margin: 0 auto; padding: 40px 24px 20px; }
+  .product-section h2 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--gold); margin-bottom: 20px; text-align: center; letter-spacing: 0.5px; }
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(115px, 1fr)); gap: 12px; }
+  .product-card { background: var(--navy-mid); border: 1.5px solid rgba(201,168,76,0.15); border-radius: var(--radius); padding: 20px 10px; text-align: center; cursor: pointer; transition: var(--transition); user-select: none; }
+  .product-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.15); }
+  .product-card.active { border-color: var(--gold); background: rgba(201,168,76,0.1); box-shadow: 0 0 0 1px var(--gold), 0 8px 24px rgba(201,168,76,0.2); }
+  .product-card .icon { font-size: 26px; margin-bottom: 8px; }
+  .product-card .label { font-size: 12px; font-weight: 500; color: var(--muted); transition: color var(--transition); line-height: 1.3; }
   .product-card.active .label { color: var(--gold-light); }
 
-  .form-wrapper {
-    position: relative; z-index: 10;
-    max-width: 720px; margin: 0 auto;
-    padding: 10px 24px 60px;
-  }
-
-  .form-section {
-    display: none;
-    animation: fadeUp 0.4s ease forwards;
-  }
+  .form-wrapper { position: relative; z-index: 10; max-width: 720px; margin: 0 auto; padding: 10px 24px 60px; }
+  .form-section { display: none; animation: fadeUp 0.4s ease forwards; }
   .form-section.visible { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .form-card {
-    background: var(--navy-mid);
-    border: 1px solid rgba(201,168,76,0.15);
-    border-radius: 16px;
-    padding: 36px;
-    margin-top: 28px;
-  }
-
-  .form-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px; font-weight: 700;
-    color: var(--gold);
-    margin-bottom: 24px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(201,168,76,0.15);
-    display: flex; align-items: center; gap: 10px;
-  }
-
-  .fields-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-  }
+  .form-card { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.15); border-radius: 16px; padding: 36px; margin-top: 28px; }
+  .form-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--gold); margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid rgba(201,168,76,0.15); display: flex; align-items: center; gap: 10px; }
+  .fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   .fields-grid .full { grid-column: 1 / -1; }
-
-  .field {
-    display: flex; flex-direction: column; gap: 6px;
-  }
-  .field label {
-    font-size: 12px; font-weight: 500;
-    color: var(--muted);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
-  .field input,
-  .field select,
-  .field textarea {
-    background: rgba(255,255,255,0.05);
-    border: 1.5px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 11px 14px;
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    transition: border-color var(--transition), box-shadow var(--transition);
-    outline: none;
-    width: 100%;
-  }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 12px; font-weight: 500; color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase; }
+  .field input, .field select, .field textarea { background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 11px 14px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; transition: border-color var(--transition), box-shadow var(--transition); outline: none; width: 100%; }
   .field textarea { resize: vertical; min-height: 90px; }
   .field select option { background: var(--navy-mid); }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
+  .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.2); }
+  .field input.error, .field select.error { border-color: var(--error); }
+  .section-divider { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; grid-column: 1 / -1; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 6px; }
 
-  .field input:focus,
-  .field select:focus,
-  .field textarea:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
-  }
-  .field input::placeholder,
-  .field textarea::placeholder { color: rgba(255,255,255,0.2); }
-
-  .field input.error,
-  .field select.error { border-color: var(--error); }
-
-  .section-divider {
-    font-size: 11px; font-weight: 600;
-    color: var(--muted); letter-spacing: 1px;
-    text-transform: uppercase;
-    grid-column: 1 / -1;
-    padding-top: 10px;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    margin-top: 6px;
-  }
-
-  .submit-btn {
-    width: 100%;
-    margin-top: 28px;
-    padding: 16px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    color: var(--navy);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px; font-weight: 700;
-    border: none; border-radius: 10px;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-    transition: var(--transition);
-    box-shadow: 0 4px 20px rgba(201,168,76,0.3);
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-  }
-  .submit-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 28px rgba(201,168,76,0.4);
-  }
+  .submit-btn { width: 100%; margin-top: 28px; padding: 16px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; letter-spacing: 0.3px; transition: var(--transition); box-shadow: 0 4px 20px rgba(201,168,76,0.3); display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(201,168,76,0.4); }
   .submit-btn:active { transform: scale(0.99); }
-  .submit-btn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-    transform: none;
-  }
+  .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
-  #success-msg {
-    display: none;
-    text-align: center;
-    padding: 48px 24px;
-    animation: fadeUp 0.4s ease forwards;
-  }
+  #success-msg { display: none; text-align: center; padding: 48px 24px; animation: fadeUp 0.4s ease forwards; }
   #success-msg .check { font-size: 56px; margin-bottom: 16px; }
-  #success-msg h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px; color: var(--gold);
-    margin-bottom: 10px;
-  }
+  #success-msg h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--gold); margin-bottom: 10px; }
   #success-msg p { color: var(--muted); font-size: 15px; }
-  #success-msg .reset-btn {
-    margin-top: 28px;
-    display: inline-block;
-    padding: 12px 28px;
-    border: 1.5px solid var(--gold);
-    border-radius: 8px;
-    color: var(--gold);
-    cursor: pointer;
-    font-size: 14px; font-weight: 500;
-    transition: var(--transition);
-    background: transparent;
-    font-family: 'DM Sans', sans-serif;
-  }
+  #success-msg .reset-btn { margin-top: 28px; display: inline-block; padding: 12px 28px; border: 1.5px solid var(--gold); border-radius: 8px; color: var(--gold); cursor: pointer; font-size: 14px; font-weight: 500; transition: var(--transition); background: transparent; font-family: 'DM Sans', sans-serif; }
   #success-msg .reset-btn:hover { background: rgba(201,168,76,0.1); }
 
-  footer {
-    position: relative; z-index: 10;
-    text-align: center;
-    padding: 20px;
-    color: rgba(138,155,176,0.5);
-    font-size: 12px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-  }
+  footer { position: relative; z-index: 10; text-align: center; padding: 20px; color: rgba(138,155,176,0.5); font-size: 12px; border-top: 1px solid rgba(255,255,255,0.05); }
 
   @media (max-width: 600px) {
     .fields-grid { grid-template-columns: 1fr; }
@@ -293,30 +91,13 @@
 <div class="product-section">
   <h2>¿Qué deseas asegurar?</h2>
   <div class="products-grid">
-    <div class="product-card" data-product="autos" onclick="selectProduct('autos', this)">
-      <div class="icon">🚗</div>
-      <div class="label">Autos</div>
-    </div>
-    <div class="product-card" data-product="moto" onclick="selectProduct('moto', this)">
-      <div class="icon">🏍️</div>
-      <div class="label">Motos</div>
-    </div>
-    <div class="product-card" data-product="hogar" onclick="selectProduct('hogar', this)">
-      <div class="icon">🏠</div>
-      <div class="label">Hogar</div>
-    </div>
-    <div class="product-card" data-product="vida" onclick="selectProduct('vida', this)">
-      <div class="icon">❤️</div>
-      <div class="label">Vida</div>
-    </div>
-    <div class="product-card" data-product="viajes" onclick="selectProduct('viajes', this)">
-      <div class="icon">✈️</div>
-      <div class="label">Viajes</div>
-    </div>
-    <div class="product-card" data-product="otros" onclick="selectProduct('otros', this)">
-      <div class="icon">📦</div>
-      <div class="label">Otros</div>
-    </div>
+    <div class="product-card" onclick="selectProduct('autos', this)"><div class="icon">🚗</div><div class="label">Autos</div></div>
+    <div class="product-card" onclick="selectProduct('moto', this)"><div class="icon">🏍️</div><div class="label">Motos</div></div>
+    <div class="product-card" onclick="selectProduct('hogar', this)"><div class="icon">🏠</div><div class="label">Hogar</div></div>
+    <div class="product-card" onclick="selectProduct('vida', this)"><div class="icon">❤️</div><div class="label">Vida Individual</div></div>
+    <div class="product-card" onclick="selectProduct('vidagrupo', this)"><div class="icon">🏢</div><div class="label">Vida Grupo</div></div>
+    <div class="product-card" onclick="selectProduct('viajes', this)"><div class="icon">✈️</div><div class="label">Viajes</div></div>
+    <div class="product-card" onclick="selectProduct('otros', this)"><div class="icon">📦</div><div class="label">Otros</div></div>
   </div>
 </div>
 
@@ -329,8 +110,9 @@
       <div class="fields-grid">
         <span class="section-divider">Datos personales</span>
         <div class="field full"><label>Nombre Completo *</label><input type="text" id="a-nombre" placeholder="Ej: Carlos Gómez"></div>
-        <div class="field"><label>Número de Identidad *</label><input type="number" id="a-id" placeholder="Cédula o NIT"></div>
+        <div class="field"><label>Número de Identidad *</label><input type="text" id="a-id" placeholder="Cédula o NIT"></div>
         <div class="field"><label>WhatsApp *</label><input type="tel" id="a-wa" placeholder="57 300 000 0000"></div>
+        <div class="field"><label>Correo Electrónico *</label><input type="email" id="a-correo" placeholder="correo@ejemplo.com"></div>
         <div class="field full"><label>Dirección de Residencia *</label><input type="text" id="a-dir" placeholder="Calle, carrera, barrio"></div>
         <span class="section-divider">Datos del vehículo</span>
         <div class="field"><label>Placas *</label><input type="text" id="a-placas" placeholder="Ej: ABC123"></div>
@@ -340,15 +122,7 @@
         <div class="field full"><label>Ciudad de Circulación *</label><input type="text" id="a-ciudad" placeholder="Ej: Bogotá"></div>
         <span class="section-divider">Información adicional</span>
         <div class="field full"><label>¿Cómo nos conociste?</label>
-          <select id="a-canal">
-            <option value="">Selecciona...</option>
-            <option>Referido</option>
-            <option>Google</option>
-            <option>WhatsApp</option>
-            <option>Redes sociales</option>
-            <option>Ya era cliente</option>
-            <option>Otro</option>
-          </select>
+          <select id="a-canal"><option value="">Selecciona...</option><option>Referido</option><option>Google</option><option>WhatsApp</option><option>Redes sociales</option><option>Ya era cliente</option><option>Otro</option></select>
         </div>
       </div>
       <button class="submit-btn" id="btn-autos" onclick="submitForm('autos')">📩 Enviar Cotización</button>
@@ -362,8 +136,9 @@
       <div class="fields-grid">
         <span class="section-divider">Datos personales</span>
         <div class="field full"><label>Nombre Completo *</label><input type="text" id="m-nombre" placeholder="Ej: Carlos Gómez"></div>
-        <div class="field"><label>Número de Identidad *</label><input type="number" id="m-id" placeholder="Cédula o NIT"></div>
+        <div class="field"><label>Número de Identidad *</label><input type="text" id="m-id" placeholder="Cédula o NIT"></div>
         <div class="field"><label>WhatsApp *</label><input type="tel" id="m-wa" placeholder="57 300 000 0000"></div>
+        <div class="field"><label>Correo Electrónico *</label><input type="email" id="m-correo" placeholder="correo@ejemplo.com"></div>
         <div class="field full"><label>Dirección de Residencia *</label><input type="text" id="m-dir" placeholder="Calle, carrera, barrio"></div>
         <span class="section-divider">Datos de la moto</span>
         <div class="field"><label>Placas *</label><input type="text" id="m-placas" placeholder="Ej: ABC12B"></div>
@@ -373,11 +148,7 @@
         <div class="field full"><label>Ciudad de Circulación *</label><input type="text" id="m-ciudad" placeholder="Ej: Medellín"></div>
         <span class="section-divider">Información adicional</span>
         <div class="field full"><label>¿Cómo nos conociste?</label>
-          <select id="m-canal">
-            <option value="">Selecciona...</option>
-            <option>Referido</option><option>Google</option><option>WhatsApp</option>
-            <option>Redes sociales</option><option>Ya era cliente</option><option>Otro</option>
-          </select>
+          <select id="m-canal"><option value="">Selecciona...</option><option>Referido</option><option>Google</option><option>WhatsApp</option><option>Redes sociales</option><option>Ya era cliente</option><option>Otro</option></select>
         </div>
       </div>
       <button class="submit-btn" id="btn-moto" onclick="submitForm('moto')">📩 Enviar Cotización</button>
@@ -391,76 +162,81 @@
       <div class="fields-grid">
         <span class="section-divider">Datos personales</span>
         <div class="field full"><label>Nombre Completo *</label><input type="text" id="h-nombre" placeholder="Ej: María Torres"></div>
-        <div class="field"><label>Número de Identidad *</label><input type="number" id="h-id" placeholder="Cédula o NIT"></div>
+        <div class="field"><label>Número de Identidad *</label><input type="text" id="h-id" placeholder="Cédula o NIT"></div>
         <div class="field"><label>WhatsApp *</label><input type="tel" id="h-wa" placeholder="57 300 000 0000"></div>
+        <div class="field"><label>Correo Electrónico *</label><input type="email" id="h-correo" placeholder="correo@ejemplo.com"></div>
         <div class="field full"><label>Dirección de Residencia *</label><input type="text" id="h-dir" placeholder="Calle, carrera, barrio"></div>
         <span class="section-divider">Datos del inmueble</span>
-        <div class="field full"><label>Dirección del Inmueble <span style="font-weight:300;text-transform:none;font-size:11px">(si es diferente a tu residencia)</span></label><input type="text" id="h-inmueble" placeholder="Dejar vacío si es la misma"></div>
-        <div class="field"><label>Tipo de Inmueble *</label>
-          <select id="h-tipo">
-            <option value="">Selecciona...</option>
-            <option>Casa</option>
-            <option>Apartamento</option>
-          </select>
-        </div>
-        <div class="field"><label>Estrato *</label>
-          <select id="h-estrato">
-            <option value="">Selecciona...</option>
-            <option>1</option><option>2</option><option>3</option>
-            <option>4</option><option>5</option><option>6</option>
-          </select>
-        </div>
+        <div class="field full"><label>Dirección del Inmueble <span style="font-weight:300;text-transform:none;font-size:11px">(si difiere de tu residencia)</span></label><input type="text" id="h-inmueble" placeholder="Dejar vacío si es la misma"></div>
+        <div class="field"><label>Tipo de Inmueble *</label><select id="h-tipo"><option value="">Selecciona...</option><option>Casa</option><option>Apartamento</option></select></div>
+        <div class="field"><label>Estrato *</label><select id="h-estrato"><option value="">Selecciona...</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
         <div class="field"><label>Valor Aproximado (COP) *</label><input type="number" id="h-valor" placeholder="Ej: 150000000"></div>
         <div class="field"><label>Metros Cuadrados *</label><input type="number" id="h-m2" placeholder="Ej: 80"></div>
         <div class="field"><label>Año de Construcción *</label><input type="number" id="h-year" placeholder="Ej: 2005" min="1900" max="2026"></div>
         <span class="section-divider">Información adicional</span>
         <div class="field full"><label>¿Cómo nos conociste?</label>
-          <select id="h-canal">
-            <option value="">Selecciona...</option>
-            <option>Referido</option><option>Google</option><option>WhatsApp</option>
-            <option>Redes sociales</option><option>Ya era cliente</option><option>Otro</option>
-          </select>
+          <select id="h-canal"><option value="">Selecciona...</option><option>Referido</option><option>Google</option><option>WhatsApp</option><option>Redes sociales</option><option>Ya era cliente</option><option>Otro</option></select>
         </div>
       </div>
       <button class="submit-btn" id="btn-hogar" onclick="submitForm('hogar')">📩 Enviar Cotización</button>
     </div>
   </div>
 
-  <!-- VIDA -->
+  <!-- VIDA INDIVIDUAL -->
   <div id="form-vida" class="form-section">
     <div class="form-card">
-      <h3>❤️ Seguro de Vida</h3>
+      <h3>❤️ Seguro de Vida Individual</h3>
       <div class="fields-grid">
         <span class="section-divider">Datos personales</span>
         <div class="field full"><label>Nombre Completo *</label><input type="text" id="v-nombre" placeholder="Ej: Luis Herrera"></div>
-        <div class="field"><label>Número de Identidad *</label><input type="number" id="v-id" placeholder="Cédula"></div>
+        <div class="field"><label>Número de Identidad *</label><input type="text" id="v-id" placeholder="Cédula"></div>
         <div class="field"><label>WhatsApp *</label><input type="tel" id="v-wa" placeholder="57 300 000 0000"></div>
+        <div class="field"><label>Correo Electrónico *</label><input type="email" id="v-correo" placeholder="correo@ejemplo.com"></div>
         <div class="field full"><label>Dirección de Residencia *</label><input type="text" id="v-dir" placeholder="Calle, carrera, barrio"></div>
         <span class="section-divider">Datos del asegurado</span>
         <div class="field"><label>Fecha de Nacimiento *</label><input type="date" id="v-nacimiento"></div>
-        <div class="field"><label>Género *</label>
-          <select id="v-genero">
-            <option value="">Selecciona...</option>
-            <option>Masculino</option><option>Femenino</option><option>Otro</option>
-          </select>
-        </div>
-        <div class="field"><label>¿Enfermedades Preexistentes? *</label>
-          <select id="v-enf">
-            <option value="">Selecciona...</option>
-            <option>Sí</option><option>No</option>
-          </select>
-        </div>
+        <div class="field"><label>Género *</label><select id="v-genero"><option value="">Selecciona...</option><option>Masculino</option><option>Femenino</option><option>Otro</option></select></div>
+        <div class="field"><label>¿Enfermedades Preexistentes? *</label><select id="v-enf"><option value="">Selecciona...</option><option>Sí</option><option>No</option></select></div>
         <div class="field"><label>Valor del Seguro Deseado (COP) *</label><input type="number" id="v-valor" placeholder="Ej: 50000000"></div>
         <span class="section-divider">Información adicional</span>
         <div class="field full"><label>¿Cómo nos conociste?</label>
-          <select id="v-canal">
-            <option value="">Selecciona...</option>
-            <option>Referido</option><option>Google</option><option>WhatsApp</option>
-            <option>Redes sociales</option><option>Ya era cliente</option><option>Otro</option>
-          </select>
+          <select id="v-canal"><option value="">Selecciona...</option><option>Referido</option><option>Google</option><option>WhatsApp</option><option>Redes sociales</option><option>Ya era cliente</option><option>Otro</option></select>
         </div>
       </div>
       <button class="submit-btn" id="btn-vida" onclick="submitForm('vida')">📩 Enviar Cotización</button>
+    </div>
+  </div>
+
+  <!-- VIDA GRUPO -->
+  <div id="form-vidagrupo" class="form-section">
+    <div class="form-card">
+      <h3>🏢 Seguro de Vida Grupo</h3>
+      <div class="fields-grid">
+        <span class="section-divider">Datos del representante</span>
+        <div class="field full"><label>Nombre Completo *</label><input type="text" id="vg-nombre" placeholder="Ej: Carlos Gómez"></div>
+        <div class="field"><label>Número de Identidad *</label><input type="text" id="vg-id" placeholder="Cédula"></div>
+        <div class="field"><label>WhatsApp *</label><input type="tel" id="vg-wa" placeholder="57 300 000 0000"></div>
+        <div class="field"><label>Correo Electrónico *</label><input type="email" id="vg-correo" placeholder="correo@empresa.com"></div>
+        <div class="field full"><label>Dirección *</label><input type="text" id="vg-dir" placeholder="Calle, carrera, barrio"></div>
+        <span class="section-divider">Datos de la empresa</span>
+        <div class="field"><label>NIT de la Empresa *</label><input type="text" id="vg-nit" placeholder="Ej: 900123456-1"></div>
+        <div class="field"><label>Nombre de la Empresa *</label><input type="text" id="vg-empresa" placeholder="Ej: Construcciones XYZ S.A.S"></div>
+        <div class="field"><label>Código CIIU *</label><input type="text" id="vg-ciu" placeholder="Ej: 4111"></div>
+        <div class="field"><label>N° de Empleados *</label><input type="number" id="vg-empleados" placeholder="Ej: 25" min="1"></div>
+        <div class="field full"><label>ARL Actual *</label>
+          <select id="vg-arl">
+            <option value="">Selecciona...</option>
+            <option>Sura</option><option>Positiva</option><option>Colmena</option>
+            <option>Axa Colpatria</option><option>Bolívar</option><option>Liberty</option>
+            <option>No tienen ARL</option>
+          </select>
+        </div>
+        <span class="section-divider">Información adicional</span>
+        <div class="field full"><label>¿Cómo nos conociste?</label>
+          <select id="vg-canal"><option value="">Selecciona...</option><option>Referido</option><option>Google</option><option>WhatsApp</option><option>Redes sociales</option><option>Ya era cliente</option><option>Otro</option></select>
+        </div>
+      </div>
+      <button class="submit-btn" id="btn-vidagrupo" onclick="submitForm('vidagrupo')">📩 Enviar Cotización</button>
     </div>
   </div>
 
@@ -471,8 +247,9 @@
       <div class="fields-grid">
         <span class="section-divider">Datos personales</span>
         <div class="field full"><label>Nombre Completo *</label><input type="text" id="vi-nombre" placeholder="Ej: Ana Martínez"></div>
-        <div class="field"><label>Número de Identidad *</label><input type="number" id="vi-id" placeholder="Cédula o Pasaporte"></div>
+        <div class="field"><label>Número de Identidad *</label><input type="text" id="vi-id" placeholder="Cédula o Pasaporte"></div>
         <div class="field"><label>WhatsApp *</label><input type="tel" id="vi-wa" placeholder="57 300 000 0000"></div>
+        <div class="field"><label>Correo Electrónico *</label><input type="email" id="vi-correo" placeholder="correo@ejemplo.com"></div>
         <div class="field full"><label>Dirección de Residencia *</label><input type="text" id="vi-dir" placeholder="Calle, carrera, barrio"></div>
         <span class="section-divider">Datos del viaje</span>
         <div class="field full"><label>Destino del Viaje *</label><input type="text" id="vi-destino" placeholder="Ej: España, EE.UU., Cancún"></div>
@@ -482,11 +259,7 @@
         <div class="field"><label>Edades (separadas por coma) *</label><input type="text" id="vi-edades" placeholder="Ej: 35, 32"></div>
         <span class="section-divider">Información adicional</span>
         <div class="field full"><label>¿Cómo nos conociste?</label>
-          <select id="vi-canal">
-            <option value="">Selecciona...</option>
-            <option>Referido</option><option>Google</option><option>WhatsApp</option>
-            <option>Redes sociales</option><option>Ya era cliente</option><option>Otro</option>
-          </select>
+          <select id="vi-canal"><option value="">Selecciona...</option><option>Referido</option><option>Google</option><option>WhatsApp</option><option>Redes sociales</option><option>Ya era cliente</option><option>Otro</option></select>
         </div>
       </div>
       <button class="submit-btn" id="btn-viajes" onclick="submitForm('viajes')">📩 Enviar Cotización</button>
@@ -500,19 +273,16 @@
       <div class="fields-grid">
         <span class="section-divider">Datos personales</span>
         <div class="field full"><label>Nombre Completo *</label><input type="text" id="o-nombre" placeholder="Ej: Claudia Ruiz"></div>
-        <div class="field"><label>Número de Identidad *</label><input type="number" id="o-id" placeholder="Cédula o NIT"></div>
+        <div class="field"><label>Número de Identidad *</label><input type="text" id="o-id" placeholder="Cédula o NIT"></div>
         <div class="field"><label>WhatsApp *</label><input type="tel" id="o-wa" placeholder="57 300 000 0000"></div>
+        <div class="field"><label>Correo Electrónico *</label><input type="email" id="o-correo" placeholder="correo@ejemplo.com"></div>
         <div class="field full"><label>Dirección de Residencia *</label><input type="text" id="o-dir" placeholder="Calle, carrera, barrio"></div>
         <span class="section-divider">Detalle del bien a asegurar</span>
         <div class="field full"><label>Descripción del Bien o Necesidad *</label><textarea id="o-desc" placeholder="Describe qué deseas asegurar..."></textarea></div>
         <div class="field full"><label>Valor Aproximado (COP) *</label><input type="number" id="o-valor" placeholder="Ej: 5000000"></div>
         <span class="section-divider">Información adicional</span>
         <div class="field full"><label>¿Cómo nos conociste?</label>
-          <select id="o-canal">
-            <option value="">Selecciona...</option>
-            <option>Referido</option><option>Google</option><option>WhatsApp</option>
-            <option>Redes sociales</option><option>Ya era cliente</option><option>Otro</option>
-          </select>
+          <select id="o-canal"><option value="">Selecciona...</option><option>Referido</option><option>Google</option><option>WhatsApp</option><option>Redes sociales</option><option>Ya era cliente</option><option>Otro</option></select>
         </div>
       </div>
       <button class="submit-btn" id="btn-otros" onclick="submitForm('otros')">📩 Enviar Cotización</button>
@@ -523,20 +293,16 @@
   <div id="success-msg">
     <div class="check">✅</div>
     <h3>¡Cotización Enviada!</h3>
-    <p>Recibimos tu información. Un asesor de Seguros Candia<br>se comunicará contigo muy pronto por WhatsApp.</p>
+    <p>Recibimos tu información. Un asesor de Seguros Candia<br>se comunicará contigo muy pronto por WhatsApp.<br><span style="font-size:13px;margin-top:6px;display:block">Revisa tu correo — te enviamos un resumen.</span></p>
     <button class="reset-btn" onclick="resetForm()">Hacer otra cotización</button>
   </div>
 
 </div>
 
-<footer>
-  © 2025 Seguros Candia · Más de 20 años protegiéndote · Bogotá, Colombia
-</footer>
+<footer>© 2025 Seguros Candia · Más de 20 años protegiéndote · Bogotá, Colombia</footer>
 
 <script>
-  // ── ÚNICO WEBHOOK PARA TODOS LOS RAMOS ──
   const WEBHOOK_URL = 'https://admin.seguroscandia.com/webhook/seguros-candia';
-
   let currentProduct = null;
 
   function selectProduct(product, el) {
@@ -554,117 +320,40 @@
 
   function getRequiredFields(product) {
     const map = {
-      autos:  ['a-nombre','a-id','a-wa','a-dir','a-placas','a-modelo','a-marca','a-linea','a-ciudad'],
-      moto:   ['m-nombre','m-id','m-wa','m-dir','m-placas','m-modelo','m-marca','m-linea','m-ciudad'],
-      hogar:  ['h-nombre','h-id','h-wa','h-dir','h-tipo','h-estrato','h-valor','h-m2','h-year'],
-      vida:   ['v-nombre','v-id','v-wa','v-dir','v-nacimiento','v-genero','v-enf','v-valor'],
-      viajes: ['vi-nombre','vi-id','vi-wa','vi-dir','vi-destino','vi-salida','vi-regreso','vi-num','vi-edades'],
-      otros:  ['o-nombre','o-id','o-wa','o-dir','o-desc','o-valor']
+      autos:     ['a-nombre','a-id','a-wa','a-correo','a-dir','a-placas','a-modelo','a-marca','a-linea','a-ciudad'],
+      moto:      ['m-nombre','m-id','m-wa','m-correo','m-dir','m-placas','m-modelo','m-marca','m-linea','m-ciudad'],
+      hogar:     ['h-nombre','h-id','h-wa','h-correo','h-dir','h-tipo','h-estrato','h-valor','h-m2','h-year'],
+      vida:      ['v-nombre','v-id','v-wa','v-correo','v-dir','v-nacimiento','v-genero','v-enf','v-valor'],
+      vidagrupo: ['vg-nombre','vg-id','vg-wa','vg-correo','vg-dir','vg-nit','vg-empresa','vg-ciu','vg-empleados','vg-arl'],
+      viajes:    ['vi-nombre','vi-id','vi-wa','vi-correo','vi-dir','vi-destino','vi-salida','vi-regreso','vi-num','vi-edades'],
+      otros:     ['o-nombre','o-id','o-wa','o-correo','o-dir','o-desc','o-valor']
     };
     return map[product] || [];
   }
 
   function buildPayload(product) {
-    const canal = (id) => {
-      const el = document.getElementById(id);
-      return el ? el.value || 'No indicado' : 'No indicado';
-    };
+    const c = (id) => { const e = document.getElementById(id); return e ? e.value || 'No indicado' : 'No indicado'; };
     const payloads = {
-      autos: {
-        producto: 'Autos',
-        'Nombre Completo': val('a-nombre'),
-        'Número de Identidad': val('a-id'),
-        'Número de WhatsApp': val('a-wa'),
-        'Dirección de Residencia': val('a-dir'),
-        'Placas': val('a-placas'),
-        'Modelo (año)': val('a-modelo'),
-        'Marca': val('a-marca'),
-        'Línea': val('a-linea'),
-        'Ciudad de Circulación': val('a-ciudad'),
-        'Canal de Adquisición': canal('a-canal')
-      },
-      moto: {
-        producto: 'Moto',
-        'Nombre Completo': val('m-nombre'),
-        'Número de Identidad': val('m-id'),
-        'Número de WhatsApp': val('m-wa'),
-        'Dirección de Residencia': val('m-dir'),
-        'Placas': val('m-placas'),
-        'Modelo (año)': val('m-modelo'),
-        'Marca': val('m-marca'),
-        'Línea': val('m-linea'),
-        'Ciudad de Circulación': val('m-ciudad'),
-        'Canal de Adquisición': canal('m-canal')
-      },
-      hogar: {
-        producto: 'Hogar',
-        'Nombre Completo': val('h-nombre'),
-        'Número de Identidad': val('h-id'),
-        'Número de WhatsApp': val('h-wa'),
-        'Dirección de Residencia': val('h-dir'),
-        'Dirección del Inmueble': val('h-inmueble') || val('h-dir'),
-        'Tipo de Inmueble': val('h-tipo'),
-        'Estrato': val('h-estrato'),
-        'Valor Aproximado del Inmueble (COP)': val('h-valor'),
-        'Metros Cuadrados': val('h-m2'),
-        'Año de Construcción': val('h-year'),
-        'Canal de Adquisición': canal('h-canal')
-      },
-      vida: {
-        producto: 'Vida',
-        'Nombre Completo': val('v-nombre'),
-        'Número de Identidad': val('v-id'),
-        'Número de WhatsApp': val('v-wa'),
-        'Dirección de Residencia': val('v-dir'),
-        'Fecha de Nacimiento': val('v-nacimiento'),
-        'Género': val('v-genero'),
-        '¿Tiene Enfermedades Preexistentes?': val('v-enf'),
-        'Valor del Seguro Deseado (COP)': val('v-valor'),
-        'Canal de Adquisición': canal('v-canal')
-      },
-      viajes: {
-        producto: 'Viajes',
-        'Nombre Completo': val('vi-nombre'),
-        'Número de Identidad': val('vi-id'),
-        'Número de WhatsApp': val('vi-wa'),
-        'Dirección de Residencia': val('vi-dir'),
-        'Destino del Viaje': val('vi-destino'),
-        'Fecha de Salida': val('vi-salida'),
-        'Fecha de Regreso': val('vi-regreso'),
-        'Número de Viajeros': val('vi-num'),
-        'Edades de los Viajeros': val('vi-edades'),
-        'Canal de Adquisición': canal('vi-canal')
-      },
-      otros: {
-        producto: 'Otros',
-        'Nombre Completo': val('o-nombre'),
-        'Número de Identidad': val('o-id'),
-        'Número de WhatsApp': val('o-wa'),
-        'Dirección de Residencia': val('o-dir'),
-        'Descripción del Bien o Necesidad': val('o-desc'),
-        'Valor Aproximado (COP)': val('o-valor'),
-        'Canal de Adquisición': canal('o-canal')
-      }
+      autos: { producto:'Autos', 'Nombre Completo':val('a-nombre'), 'Número de Identidad':val('a-id'), 'Número de WhatsApp':val('a-wa'), 'Correo':val('a-correo'), 'Dirección de Residencia':val('a-dir'), 'Placas':val('a-placas'), 'Modelo (año)':val('a-modelo'), 'Marca':val('a-marca'), 'Línea':val('a-linea'), 'Ciudad de Circulación':val('a-ciudad'), 'Canal de Adquisición':c('a-canal') },
+      moto: { producto:'Moto', 'Nombre Completo':val('m-nombre'), 'Número de Identidad':val('m-id'), 'Número de WhatsApp':val('m-wa'), 'Correo':val('m-correo'), 'Dirección de Residencia':val('m-dir'), 'Placas':val('m-placas'), 'Modelo (año)':val('m-modelo'), 'Marca':val('m-marca'), 'Línea':val('m-linea'), 'Ciudad de Circulación':val('m-ciudad'), 'Canal de Adquisición':c('m-canal') },
+      hogar: { producto:'Hogar', 'Nombre Completo':val('h-nombre'), 'Número de Identidad':val('h-id'), 'Número de WhatsApp':val('h-wa'), 'Correo':val('h-correo'), 'Dirección de Residencia':val('h-dir'), 'Dirección del Inmueble':val('h-inmueble')||val('h-dir'), 'Tipo de Inmueble':val('h-tipo'), 'Estrato':val('h-estrato'), 'Valor Aproximado del Inmueble (COP)':val('h-valor'), 'Metros Cuadrados':val('h-m2'), 'Año de Construcción':val('h-year'), 'Canal de Adquisición':c('h-canal') },
+      vida: { producto:'Vida Individual', 'Nombre Completo':val('v-nombre'), 'Número de Identidad':val('v-id'), 'Número de WhatsApp':val('v-wa'), 'Correo':val('v-correo'), 'Dirección de Residencia':val('v-dir'), 'Fecha de Nacimiento':val('v-nacimiento'), 'Género':val('v-genero'), '¿Tiene Enfermedades Preexistentes?':val('v-enf'), 'Valor del Seguro Deseado (COP)':val('v-valor'), 'Canal de Adquisición':c('v-canal') },
+      vidagrupo: { producto:'Vida Grupo', 'Nombre Completo':val('vg-nombre'), 'Número de Identidad':val('vg-id'), 'Número de WhatsApp':val('vg-wa'), 'Correo':val('vg-correo'), 'Dirección de Residencia':val('vg-dir'), 'NIT de la Empresa':val('vg-nit'), 'Nombre de la Empresa':val('vg-empresa'), 'Código CIIU':val('vg-ciu'), 'Número de Empleados':val('vg-empleados'), 'ARL Actual':val('vg-arl'), 'Canal de Adquisición':c('vg-canal') },
+      viajes: { producto:'Viajes', 'Nombre Completo':val('vi-nombre'), 'Número de Identidad':val('vi-id'), 'Número de WhatsApp':val('vi-wa'), 'Correo':val('vi-correo'), 'Dirección de Residencia':val('vi-dir'), 'Destino del Viaje':val('vi-destino'), 'Fecha de Salida':val('vi-salida'), 'Fecha de Regreso':val('vi-regreso'), 'Número de Viajeros':val('vi-num'), 'Edades de los Viajeros':val('vi-edades'), 'Canal de Adquisición':c('vi-canal') },
+      otros: { producto:'Otros', 'Nombre Completo':val('o-nombre'), 'Número de Identidad':val('o-id'), 'Número de WhatsApp':val('o-wa'), 'Correo':val('o-correo'), 'Dirección de Residencia':val('o-dir'), 'Descripción del Bien o Necesidad':val('o-desc'), 'Valor Aproximado (COP)':val('o-valor'), 'Canal de Adquisición':c('o-canal') }
     };
     return payloads[product];
   }
 
-  function val(id) {
-    const el = document.getElementById(id);
-    return el ? el.value.trim() : '';
-  }
+  function val(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
 
   function validate(product) {
     const fields = getRequiredFields(product);
     let valid = true;
     fields.forEach(id => {
       const el = document.getElementById(id);
-      if (el && !el.value.trim()) {
-        el.classList.add('error');
-        valid = false;
-      } else if (el) {
-        el.classList.remove('error');
-      }
+      if (el && !el.value.trim()) { el.classList.add('error'); valid = false; }
+      else if (el) { el.classList.remove('error'); }
     });
     return valid;
   }
@@ -674,31 +363,15 @@
   });
 
   async function submitForm(product) {
-    if (!validate(product)) {
-      alert('Por favor completa todos los campos obligatorios.');
-      return;
-    }
-
+    if (!validate(product)) { alert('Por favor completa todos los campos obligatorios.'); return; }
     const btn = document.getElementById('btn-' + product);
     btn.disabled = true;
     btn.textContent = '⏳ Enviando...';
-
-    const payload = buildPayload(product);
-
     try {
-      await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        mode: 'no-cors'
-      });
-    } catch (e) {
-      // no-cors siempre "falla" en silencio — el envío igual llega a n8n
-    }
-
+      await fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(buildPayload(product)), mode: 'no-cors' });
+    } catch (e) {}
     btn.disabled = false;
     btn.textContent = '📩 Enviar Cotización';
-
     document.querySelectorAll('.form-section').forEach(f => f.classList.remove('visible'));
     document.querySelectorAll('.product-card').forEach(c => c.classList.remove('active'));
     const msg = document.getElementById('success-msg');
