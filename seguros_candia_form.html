@@ -333,10 +333,10 @@
     <!--
       ════════════════════════════════════════════════════
       CONFIGURA AQUÍ LA URL DE TU WEBHOOK DE n8n:
-        action="https://admin.seguroscandia.com/webhook/seguros-candia"
+        action="https://hook.us2.make.com/dcjccifrxnzxgkwtzcenigyv930mfnb4"
       ════════════════════════════════════════════════════
     -->
-    <form id="seguros-form" method="POST" action="YOUR_N8N_WEBHOOK_URL_HERE">
+    <form id="seguros-form" method="POST" action="https://hook.us2.make.com/dcjccifrxnzxgkwtzcenigyv930mfnb4">
 
       <!-- DATOS PERSONALES -->
       <p class="section-title">Datos Personales</p>
@@ -638,7 +638,7 @@
     const form = e.target;
     const webhookUrl = form.action;
 
-    if (webhookUrl === 'YOUR_N8N_WEBHOOK_URL_HERE') {
+    if (webhookUrl === 'https://hook.us2.make.com/dcjccifrxnzxgkwtzcenigyv930mfnb4') {
       showError('⚠️ La URL del webhook de n8n no está configurada. Edita el atributo action del formulario.');
       return;
     }
