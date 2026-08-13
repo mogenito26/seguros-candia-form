@@ -369,11 +369,17 @@
     const btn = document.getElementById('btn-' + product);
     btn.disabled = true;
     btn.textContent = '⏳ Enviando...';
+    let ok = false;
     try {
-      await fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(buildPayload(product)), mode: 'no-cors' });
+      const res = await fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(buildPayload(product)) });
+      ok = res.ok;
     } catch (e) {}
     btn.disabled = false;
     btn.textContent = '📩 Enviar Cotización';
+    if (!ok) {
+      alert('No pudimos enviar tu solicitud. Por favor intenta de nuevo o escríbenos directamente.');
+      return;
+    }
     document.querySelectorAll('.form-section').forEach(f => f.classList.remove('visible'));
     document.querySelectorAll('.product-card').forEach(c => c.classList.remove('active'));
     const msg = document.getElementById('success-msg');
