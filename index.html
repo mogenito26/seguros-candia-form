@@ -215,8 +215,10 @@
         <span class="section-divider">Datos del asegurado</span>
         <div class="field"><label>Fecha de Nacimiento *</label><input type="date" id="v-nacimiento"></div>
         <div class="field"><label>Género *</label><select id="v-genero"><option value="">Selecciona...</option><option>Masculino</option><option>Femenino</option><option>Otro</option></select></div>
+        <div class="field"><label>Peso (kg) *</label><input type="number" id="v-peso" placeholder="Ej: 70"></div>
+        <div class="field"><label>Estatura (cm) *</label><input type="number" id="v-estatura" placeholder="Ej: 170"></div>
         <div class="field"><label>¿Enfermedades Preexistentes? *</label><select id="v-enf"><option value="">Selecciona...</option><option>Sí</option><option>No</option></select></div>
-        <div class="field"><label>Valor del Seguro Deseado (COP) *</label><input type="number" id="v-valor" placeholder="Ej: 50000000"></div>
+        <div class="field"><label>Valor disponible para pago mensual del seguro (COP) *</label><input type="number" id="v-valor" placeholder="Ej: 50000000"></div>
         <span class="section-divider">Información adicional</span>
         <div class="field full"><label>¿Cómo nos conociste?</label>
           <select id="v-canal"><option value="">Selecciona...</option><option>Referido</option><option>Google</option><option>WhatsApp</option><option>Redes sociales</option><option>Ya era cliente</option><option>Otro</option></select>
@@ -343,7 +345,7 @@
       autos:     ['a-nombre','a-id','a-wa','a-correo','a-dir','a-placas','a-modelo','a-marca','a-linea','a-ciudad'],
       moto:      ['m-nombre','m-id','m-wa','m-correo','m-dir','m-placas','m-modelo','m-marca','m-linea','m-ciudad'],
       hogar:     ['h-nombre','h-id','h-wa','h-correo','h-dir','h-tipo','h-estrato','h-habitado','h-tipo-valor','h-valor','h-m2','h-year'],
-      vida:      ['v-nombre','v-id','v-expedicion','v-wa','v-correo','v-dir','v-nacimiento','v-genero','v-enf','v-valor'],
+      vida:      ['v-nombre','v-id','v-expedicion','v-wa','v-correo','v-dir','v-nacimiento','v-genero','v-peso','v-estatura','v-enf','v-valor'],
       vidagrupo: ['vg-nombre','vg-id','vg-wa','vg-correo','vg-dir','vg-nit','vg-empresa','vg-ciu','vg-empleados','vg-arl'],
       viajes:    ['vi-nombre','vi-id','vi-wa','vi-correo','vi-dir','vi-destino','vi-pais-salida','vi-salida','vi-regreso','vi-num','vi-edades'],
       otros:     ['o-nombre','o-id','o-wa','o-correo','o-dir','o-desc','o-valor']
@@ -357,7 +359,7 @@
       autos: { producto:'Autos', nombre:val('a-nombre'), numero_identidad:val('a-id'), celular:val('a-wa'), correo:val('a-correo'), direccion:val('a-dir'), placas:val('a-placas'), modelo:val('a-modelo'), marca:val('a-marca'), linea:val('a-linea'), ciudad_circulacion:val('a-ciudad'), canal_adquisicion:c('a-canal') },
       moto: { producto:'Moto', nombre:val('m-nombre'), numero_identidad:val('m-id'), celular:val('m-wa'), correo:val('m-correo'), direccion:val('m-dir'), placas:val('m-placas'), modelo:val('m-modelo'), marca:val('m-marca'), linea:val('m-linea'), ciudad_circulacion:val('m-ciudad'), canal_adquisicion:c('m-canal') },
       hogar: { producto:'Hogar', nombre:val('h-nombre'), numero_identidad:val('h-id'), celular:val('h-wa'), correo:val('h-correo'), direccion:val('h-dir'), direccion_inmueble:val('h-inmueble')||val('h-dir'), tipo_inmueble:val('h-tipo'), estrato:val('h-estrato'), propietario_habita:val('h-habitado'), tipo_valor_asegurar:val('h-tipo-valor'), valor_inmueble:val('h-valor'), metros_cuadrados:val('h-m2'), anio_construccion:val('h-year'), canal_adquisicion:c('h-canal') },
-      vida: { producto:'Vida Individual', nombre:val('v-nombre'), numero_identidad:val('v-id'), fecha_expedicion_documento:val('v-expedicion'), celular:val('v-wa'), correo:val('v-correo'), direccion:val('v-dir'), fecha_nacimiento:val('v-nacimiento'), genero:val('v-genero'), enfermedades_preexistentes:val('v-enf'), valor_seguro_deseado:val('v-valor'), canal_adquisicion:c('v-canal') },
+      vida: { producto:'Vida Individual', nombre:val('v-nombre'), numero_identidad:val('v-id'), fecha_expedicion_documento:val('v-expedicion'), celular:val('v-wa'), correo:val('v-correo'), direccion:val('v-dir'), fecha_nacimiento:val('v-nacimiento'), genero:val('v-genero'), peso_kg:val('v-peso'), estatura_cm:val('v-estatura'), enfermedades_preexistentes:val('v-enf'), valor_seguro_deseado:val('v-valor'), canal_adquisicion:c('v-canal') },
       vidagrupo: { producto:'Vida Grupo', nombre:val('vg-nombre'), numero_identidad:val('vg-id'), celular:val('vg-wa'), correo:val('vg-correo'), direccion:val('vg-dir'), nit_empresa:val('vg-nit'), nombre_empresa:val('vg-empresa'), codigo_ciiu:val('vg-ciu'), numero_empleados:val('vg-empleados'), arl:val('vg-arl'), canal_adquisicion:c('vg-canal') },
       viajes: { producto:'Viajes', nombre:val('vi-nombre'), numero_identidad:val('vi-id'), celular:val('vi-wa'), correo:val('vi-correo'), direccion:val('vi-dir'), destino:val('vi-destino'), pais_salida:val('vi-pais-salida'), fecha_salida:val('vi-salida'), fecha_regreso:val('vi-regreso'), numero_viajeros:val('vi-num'), edades_viajeros:val('vi-edades'), canal_adquisicion:c('vi-canal') },
       otros: { producto:'Otros', nombre:val('o-nombre'), numero_identidad:val('o-id'), celular:val('o-wa'), correo:val('o-correo'), direccion:val('o-dir'), descripcion_bien:val('o-desc'), valor_aproximado:val('o-valor'), canal_adquisicion:c('o-canal') }
