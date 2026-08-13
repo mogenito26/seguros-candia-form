@@ -1,72 +1,60 @@
--- Tabla principal: recibe todos los campos del formulario
+-- Migración: agrega a la tabla `contacts` (compartida con el CRM/WhatsApp)
+-- las columnas que necesita el formulario de seguros.
 -- Ejecutar en: Supabase > SQL Editor
+--
+-- No se toca name / email / phone / tenant_id / avatar_url / birthday /
+-- policy_number / notes / tags / created_at / updated_at / id: son de uso
+-- compartido con el resto del sistema (conversations, messages, etc.).
+-- El nodo de n8n mapea nombre->name, correo->email, celular->phone y el
+-- resto de los campos va directo a las columnas nuevas de abajo.
 
-CREATE TABLE solicitudes (
-  id                        UUID        DEFAULT gen_random_uuid() PRIMARY KEY,
-  created_at                TIMESTAMPTZ DEFAULT NOW(),
-
-  -- Datos personales (siempre presentes)
-  nombre                    TEXT        NOT NULL,
-  numero_identidad          TEXT        NOT NULL,
-  celular                   TEXT        NOT NULL,
-  correo                    TEXT        NOT NULL,
-  direccion                 TEXT        NOT NULL,
-  producto                  TEXT        NOT NULL,
-  canal_adquisicion         TEXT,
+ALTER TABLE contacts
+  ADD COLUMN IF NOT EXISTS numero_identidad           TEXT,
+  ADD COLUMN IF NOT EXISTS direccion                   TEXT,
+  ADD COLUMN IF NOT EXISTS producto                    TEXT,
+  ADD COLUMN IF NOT EXISTS canal_adquisicion           TEXT,
 
   -- Autos / Moto
-  placas                    TEXT,
-  modelo                    TEXT,
-  marca                     TEXT,
-  linea                     TEXT,
-  ciudad_circulacion        TEXT,
+  ADD COLUMN IF NOT EXISTS placas                      TEXT,
+  ADD COLUMN IF NOT EXISTS modelo                      TEXT,
+  ADD COLUMN IF NOT EXISTS marca                       TEXT,
+  ADD COLUMN IF NOT EXISTS linea                       TEXT,
+  ADD COLUMN IF NOT EXISTS ciudad_circulacion          TEXT,
 
   -- Hogar
-  direccion_inmueble        TEXT,
-  tipo_inmueble             TEXT,
-  estrato                   TEXT,
-  valor_inmueble            NUMERIC,
-  metros_cuadrados          NUMERIC,
-  anio_construccion         INTEGER,
+  ADD COLUMN IF NOT EXISTS direccion_inmueble          TEXT,
+  ADD COLUMN IF NOT EXISTS tipo_inmueble               TEXT,
+  ADD COLUMN IF NOT EXISTS estrato                     TEXT,
+  ADD COLUMN IF NOT EXISTS valor_inmueble               NUMERIC,
+  ADD COLUMN IF NOT EXISTS metros_cuadrados            NUMERIC,
+  ADD COLUMN IF NOT EXISTS anio_construccion           INTEGER,
 
   -- Vida Individual
-  fecha_expedicion_documento DATE,
-  fecha_nacimiento          DATE,
-  genero                    TEXT,
-  enfermedades_preexistentes TEXT,
-  valor_seguro_deseado      NUMERIC,
+  ADD COLUMN IF NOT EXISTS fecha_expedicion_documento  DATE,
+  ADD COLUMN IF NOT EXISTS fecha_nacimiento            DATE,
+  ADD COLUMN IF NOT EXISTS genero                      TEXT,
+  ADD COLUMN IF NOT EXISTS enfermedades_preexistentes  TEXT,
+  ADD COLUMN IF NOT EXISTS valor_seguro_deseado        NUMERIC,
 
   -- Vida Grupo
-  nit_empresa               TEXT,
-  nombre_empresa            TEXT,
-  codigo_ciiu               TEXT,
-  numero_empleados          INTEGER,
-  arl                       TEXT,
+  ADD COLUMN IF NOT EXISTS nit_empresa                 TEXT,
+  ADD COLUMN IF NOT EXISTS nombre_empresa              TEXT,
+  ADD COLUMN IF NOT EXISTS codigo_ciiu                 TEXT,
+  ADD COLUMN IF NOT EXISTS numero_empleados            INTEGER,
+  ADD COLUMN IF NOT EXISTS arl                         TEXT,
 
   -- Viajes
-  destino                   TEXT,
-  pais_salida                TEXT,
-  fecha_salida               DATE,
-  fecha_regreso              DATE,
-  numero_viajeros             INTEGER,
-  edades_viajeros             TEXT,
+  ADD COLUMN IF NOT EXISTS destino                     TEXT,
+  ADD COLUMN IF NOT EXISTS pais_salida                 TEXT,
+  ADD COLUMN IF NOT EXISTS fecha_salida                DATE,
+  ADD COLUMN IF NOT EXISTS fecha_regreso               DATE,
+  ADD COLUMN IF NOT EXISTS numero_viajeros             INTEGER,
+  ADD COLUMN IF NOT EXISTS edades_viajeros             TEXT,
 
   -- Otros
-  descripcion_bien           TEXT,
-  valor_aproximado            NUMERIC
-);
+  ADD COLUMN IF NOT EXISTS descripcion_bien            TEXT,
+  ADD COLUMN IF NOT EXISTS valor_aproximado            NUMERIC;
 
--- Índices útiles para filtrar por producto y fecha
-CREATE INDEX idx_solicitudes_producto   ON solicitudes (producto);
-CREATE INDEX idx_solicitudes_created_at ON solicitudes (created_at DESC);
-CREATE INDEX idx_solicitudes_correo     ON solicitudes (correo);
-
--- Row Level Security (recomendado en Supabase)
-ALTER TABLE solicitudes ENABLE ROW LEVEL SECURITY;
-
--- Solo el service_role (n8n) puede insertar y leer
-CREATE POLICY "n8n puede insertar" ON solicitudes
-  FOR INSERT WITH CHECK (true);
-
-CREATE POLICY "n8n puede leer" ON solicitudes
-  FOR SELECT USING (true);
+-- Índices útiles para filtrar las solicitudes del formulario
+CREATE INDEX IF NOT EXISTS idx_contacts_producto   ON contacts (producto);
+CREATE INDEX IF NOT EXISTS idx_contacts_email       ON contacts (email);
