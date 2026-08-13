@@ -55,6 +55,7 @@
   .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
   .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.2); }
   .field input.error, .field select.error { border-color: var(--error); }
+  .field-hint { font-size: 11px; font-weight: 300; color: var(--muted); line-height: 1.4; margin-top: -8px; }
   .section-divider { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; grid-column: 1 / -1; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 6px; }
 
   .submit-btn { width: 100%; margin-top: 28px; padding: 16px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; letter-spacing: 0.3px; transition: var(--transition); box-shadow: 0 4px 20px rgba(201,168,76,0.3); display: flex; align-items: center; justify-content: center; gap: 8px; }
@@ -170,7 +171,24 @@
         <div class="field full"><label>Dirección del Inmueble <span style="font-weight:300;text-transform:none;font-size:11px">(si difiere de tu residencia)</span></label><input type="text" id="h-inmueble" placeholder="Dejar vacío si es la misma"></div>
         <div class="field"><label>Tipo de Inmueble *</label><select id="h-tipo"><option value="">Selecciona...</option><option>Casa</option><option>Apartamento</option></select></div>
         <div class="field"><label>Estrato *</label><select id="h-estrato"><option value="">Selecciona...</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+        <div class="field"><label>¿El Propietario Habita el Inmueble? *</label>
+          <select id="h-habitado">
+            <option value="">Selecciona...</option>
+            <option value="Sí, lo habita el propietario">Sí, lo habita el propietario</option>
+            <option value="No, está arrendado">No, está arrendado</option>
+            <option value="No, está desocupado">No, está desocupado</option>
+            <option value="No, lo habita un familiar">No, lo habita un familiar</option>
+          </select>
+        </div>
+        <div class="field"><label>Valor a Asegurar *</label>
+          <select id="h-tipo-valor">
+            <option value="">Selecciona...</option>
+            <option value="Valor Comercial">Valor Comercial</option>
+            <option value="Valor de Reposición">Valor de Reposición</option>
+          </select>
+        </div>
         <div class="field"><label>Valor Aproximado (COP) *</label><input type="number" id="h-valor" placeholder="Ej: 150000000"></div>
+        <div class="field full field-hint">Valor comercial = precio de venta en el mercado · Valor de reposición = costo de reconstruir el inmueble desde cero (recomendado para efectos de aseguramiento)</div>
         <div class="field"><label>Metros Cuadrados *</label><input type="number" id="h-m2" placeholder="Ej: 80"></div>
         <div class="field"><label>Año de Construcción *</label><input type="number" id="h-year" placeholder="Ej: 2005" min="1900" max="2026"></div>
         <span class="section-divider">Información adicional</span>
@@ -324,7 +342,7 @@
     const map = {
       autos:     ['a-nombre','a-id','a-wa','a-correo','a-dir','a-placas','a-modelo','a-marca','a-linea','a-ciudad'],
       moto:      ['m-nombre','m-id','m-wa','m-correo','m-dir','m-placas','m-modelo','m-marca','m-linea','m-ciudad'],
-      hogar:     ['h-nombre','h-id','h-wa','h-correo','h-dir','h-tipo','h-estrato','h-valor','h-m2','h-year'],
+      hogar:     ['h-nombre','h-id','h-wa','h-correo','h-dir','h-tipo','h-estrato','h-habitado','h-tipo-valor','h-valor','h-m2','h-year'],
       vida:      ['v-nombre','v-id','v-expedicion','v-wa','v-correo','v-dir','v-nacimiento','v-genero','v-enf','v-valor'],
       vidagrupo: ['vg-nombre','vg-id','vg-wa','vg-correo','vg-dir','vg-nit','vg-empresa','vg-ciu','vg-empleados','vg-arl'],
       viajes:    ['vi-nombre','vi-id','vi-wa','vi-correo','vi-dir','vi-destino','vi-pais-salida','vi-salida','vi-regreso','vi-num','vi-edades'],
@@ -338,7 +356,7 @@
     const payloads = {
       autos: { producto:'Autos', nombre:val('a-nombre'), numero_identidad:val('a-id'), celular:val('a-wa'), correo:val('a-correo'), direccion:val('a-dir'), placas:val('a-placas'), modelo:val('a-modelo'), marca:val('a-marca'), linea:val('a-linea'), ciudad_circulacion:val('a-ciudad'), canal_adquisicion:c('a-canal') },
       moto: { producto:'Moto', nombre:val('m-nombre'), numero_identidad:val('m-id'), celular:val('m-wa'), correo:val('m-correo'), direccion:val('m-dir'), placas:val('m-placas'), modelo:val('m-modelo'), marca:val('m-marca'), linea:val('m-linea'), ciudad_circulacion:val('m-ciudad'), canal_adquisicion:c('m-canal') },
-      hogar: { producto:'Hogar', nombre:val('h-nombre'), numero_identidad:val('h-id'), celular:val('h-wa'), correo:val('h-correo'), direccion:val('h-dir'), direccion_inmueble:val('h-inmueble')||val('h-dir'), tipo_inmueble:val('h-tipo'), estrato:val('h-estrato'), valor_inmueble:val('h-valor'), metros_cuadrados:val('h-m2'), anio_construccion:val('h-year'), canal_adquisicion:c('h-canal') },
+      hogar: { producto:'Hogar', nombre:val('h-nombre'), numero_identidad:val('h-id'), celular:val('h-wa'), correo:val('h-correo'), direccion:val('h-dir'), direccion_inmueble:val('h-inmueble')||val('h-dir'), tipo_inmueble:val('h-tipo'), estrato:val('h-estrato'), propietario_habita:val('h-habitado'), tipo_valor_asegurar:val('h-tipo-valor'), valor_inmueble:val('h-valor'), metros_cuadrados:val('h-m2'), anio_construccion:val('h-year'), canal_adquisicion:c('h-canal') },
       vida: { producto:'Vida Individual', nombre:val('v-nombre'), numero_identidad:val('v-id'), fecha_expedicion_documento:val('v-expedicion'), celular:val('v-wa'), correo:val('v-correo'), direccion:val('v-dir'), fecha_nacimiento:val('v-nacimiento'), genero:val('v-genero'), enfermedades_preexistentes:val('v-enf'), valor_seguro_deseado:val('v-valor'), canal_adquisicion:c('v-canal') },
       vidagrupo: { producto:'Vida Grupo', nombre:val('vg-nombre'), numero_identidad:val('vg-id'), celular:val('vg-wa'), correo:val('vg-correo'), direccion:val('vg-dir'), nit_empresa:val('vg-nit'), nombre_empresa:val('vg-empresa'), codigo_ciiu:val('vg-ciu'), numero_empleados:val('vg-empleados'), arl:val('vg-arl'), canal_adquisicion:c('vg-canal') },
       viajes: { producto:'Viajes', nombre:val('vi-nombre'), numero_identidad:val('vi-id'), celular:val('vi-wa'), correo:val('vi-correo'), direccion:val('vi-dir'), destino:val('vi-destino'), pais_salida:val('vi-pais-salida'), fecha_salida:val('vi-salida'), fecha_regreso:val('vi-regreso'), numero_viajeros:val('vi-num'), edades_viajeros:val('vi-edades'), canal_adquisicion:c('vi-canal') },
