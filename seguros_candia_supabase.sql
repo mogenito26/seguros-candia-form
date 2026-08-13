@@ -8,13 +8,13 @@ CREATE TABLE solicitudes (
   -- Datos personales (siempre presentes)
   nombre                    TEXT        NOT NULL,
   numero_identidad          TEXT        NOT NULL,
-  fecha_nacimiento          DATE,
   celular                   TEXT        NOT NULL,
   correo                    TEXT        NOT NULL,
   direccion                 TEXT        NOT NULL,
   producto                  TEXT        NOT NULL,
+  canal_adquisicion         TEXT,
 
-  -- Autos
+  -- Autos / Moto
   placas                    TEXT,
   modelo                    TEXT,
   marca                     TEXT,
@@ -22,32 +22,38 @@ CREATE TABLE solicitudes (
   ciudad_circulacion        TEXT,
 
   -- Hogar
+  direccion_inmueble        TEXT,
   tipo_inmueble             TEXT,
-  tenencia                  TEXT,
+  estrato                   TEXT,
   valor_inmueble            NUMERIC,
-  ciudad_inmueble           TEXT,
-
-  -- Viajes
-  pais_origen               TEXT,
-  pais_destino              TEXT,
-  fecha_salida              DATE,
-  fecha_regreso             DATE,
-  numero_personas           INTEGER,
+  metros_cuadrados          NUMERIC,
+  anio_construccion         INTEGER,
 
   -- Vida Individual
-  ocupacion                 TEXT,
   fecha_expedicion_documento DATE,
-  pago_mensual              NUMERIC,
+  fecha_nacimiento          DATE,
+  genero                    TEXT,
+  enfermedades_preexistentes TEXT,
+  valor_seguro_deseado      NUMERIC,
 
   -- Vida Grupo
   nit_empresa               TEXT,
-  codigo_ciu                TEXT,
+  nombre_empresa            TEXT,
+  codigo_ciiu               TEXT,
   numero_empleados          INTEGER,
   arl                       TEXT,
 
-  -- Empresariales
-  empresa_nombre            TEXT,
-  empresa_actividad         TEXT
+  -- Viajes
+  destino                   TEXT,
+  pais_salida                TEXT,
+  fecha_salida               DATE,
+  fecha_regreso              DATE,
+  numero_viajeros             INTEGER,
+  edades_viajeros             TEXT,
+
+  -- Otros
+  descripcion_bien           TEXT,
+  valor_aproximado            NUMERIC
 );
 
 -- Índices útiles para filtrar por producto y fecha
