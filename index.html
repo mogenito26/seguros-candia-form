@@ -528,8 +528,9 @@
 <script>
 (function () {
   'use strict';
-  var WEBHOOK_URL = 'https://n8n.seguroscandia.work/webhook/seguros-candia';
-  var VERSION_POLITICA = '2026-11-07';
+  // El CRM guarda la solicitud y la prueba de la autorización, y la reenvía a n8n
+  var WEBHOOK_URL = 'https://crm.seguroscandia.work/api/webhook/cotizacion';
+  var VERSION_POLITICA = '2.0 (2026-11-07)';
   var TITULOS = {
     autos: '🚗 Seguro de Auto', moto: '🏍️ Seguro de Moto', soat: '📄 SOAT', hogar: '🏠 Seguro de Hogar',
     vida: '❤️ Seguro de Vida Individual', salud: '🩺 Salud Familiar', vidagrupo: '🏢 Vida Grupo',
@@ -820,7 +821,7 @@
       if (!res.ok) throw new Error('HTTP ' + res.status);
       mostrarExito();
     }).catch(function () {
-      resumen.innerHTML = 'No pudimos enviar tu solicitud. Intenta de nuevo en unos minutos o escríbenos por <a href="https://wa.me/573158939179" target="_blank" rel="noopener">WhatsApp</a>.';
+      resumen.innerHTML = 'No pudimos enviar tu solicitud. Intenta de nuevo en unos minutos o escríbenos por <a href="https://wa.me/573223098985" target="_blank" rel="noopener">WhatsApp</a>.';
       resumen.focus();
     }).finally(function () {
       clearTimeout(timeout);
